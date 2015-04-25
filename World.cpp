@@ -17,7 +17,6 @@ World::~World() {
 
 void World::Render() {
     glClear(GL_COLOR_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     for (Entity* renderEntity : World::WorldItems) {
       if (!renderEntity->Draw()) {

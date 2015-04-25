@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
-#include "JAMCT_Logger.h"
+#include "JAMCT_Logger.hpp"
 #include "Entity.hpp"
 #include "World.hpp"
 
@@ -46,6 +46,16 @@ int main() {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);
+
+    glViewport(0, 0, widthMM, heightMM);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0.0f, widthMM, 0.0f, heightMM, 0.0f, 1.0f);
+    glMatrixMode (GL_MODELVIEW);
+    glLoadIdentity();
+
+
+
     while (!glfwWindowShouldClose(window)) {
         world->Render();
     }

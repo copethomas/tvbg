@@ -1,6 +1,6 @@
 #ifndef ENTITY_HPP_INCLUDED
 #define ENTITY_HPP_INCLUDED
-#include "JAMCT_Logger.h"
+#include "JAMCT_Logger.hpp"
 class Entity{
 
 private:

@@ -1,6 +1,6 @@
 #ifndef WORLD_HPP_INCLUDED
 #define WORLD_HPP_INCLUDED
-#include "JAMCT_Logger.h"
+#include "JAMCT_Logger.hpp"
 #include "Entity.hpp"
 #include <GLFW/glfw3.h>
 #include <vector>
