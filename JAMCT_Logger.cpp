@@ -1,4 +1,4 @@
-#include "JAMCT_Logger.h"
+#include "JAMCT_Logger.hpp"
 #include <iostream>
 #include <string>
 #include <sstream>

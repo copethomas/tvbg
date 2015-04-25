@@ -1,8 +1,11 @@
 #include "World.hpp"
 
 
-World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window): Logger(in_logger), Window(in_window) {
+World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
+    World::WIDTH = screen_width;
+    World::HEIGHT = screen_hight;
+
 }
 
 World::~World() {

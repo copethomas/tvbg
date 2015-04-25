@@ -3,17 +3,17 @@
 #include "JAMCT_Logger.hpp"
 class Entity{
 
-private:
+protected:
     int XLocation = 0;
     int YLocation = 0;
     bool IsDead = false;
     JAMCT_Logger *Logger;
 
 public:
-    bool Draw();
+    virtual bool Draw();
     void SetDead(bool dead);
-    Entity(JAMCT_Logger *in_logger);
-    ~Entity();
+    explicit Entity(JAMCT_Logger *in_logger,int startx,int starty);
+    virtual ~Entity();
 };
 
 
