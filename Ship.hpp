@@ -2,10 +2,12 @@
 #define SHIP_HPP_INCLUDED
 #include "MovableEntity.hpp"
 #include "JAMCT_Logger.hpp"
+#include "World.hpp"
 class Ship: public MovableEntity {
 
 protected:
     int Health;
+    World *theWorld;
 
 public:
     virtual bool Draw();
@@ -14,8 +16,10 @@ public:
     virtual bool MoveDown();
     virtual bool MoveLeft();
     virtual bool MoveRight();
+    virtual bool Shoot();
     void DamageShip(int hitDamage);
-    explicit Ship(JAMCT_Logger *in_logger,int startx,int starty,int shipHealth);
+    Ship(JAMCT_Logger *in_logger,int startx,int starty,int in_health,World *home_world);
+
 };
 
 #endif // SHIP_HPP_INCLUDED

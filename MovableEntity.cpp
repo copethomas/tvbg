@@ -40,3 +40,10 @@ bool MovableEntity::MoveRight()
 {
     return true;
 }
+
+MovableEntity::MovableEntity(JAMCT_Logger* in_logger, int startx, int starty): Entity(in_logger,startx,starty)
+{
+    //Nothing Else to Construct
+}
+
+

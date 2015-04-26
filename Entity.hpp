@@ -12,7 +12,7 @@ protected:
 public:
     virtual bool Draw();
     void SetDead(bool dead);
-    explicit Entity(JAMCT_Logger *in_logger,int startx,int starty);
+    Entity(JAMCT_Logger *in_logger,int startx,int starty);
     virtual ~Entity();
 };
 

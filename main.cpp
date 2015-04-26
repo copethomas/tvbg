@@ -2,10 +2,8 @@
 #include <string>
 #include <iostream>
 #include "JAMCT_Logger.hpp"
-#include "Entity.hpp"
-#include "MovableEntity.hpp"
 #include "World.hpp"
-#include "Ship.hpp"
+#include "PlayerShip.hpp"
 
 void Fatal_Error(std::string message,JAMCT_Logger *logger) {
     logger->Log(JAMCT_Logger::CRIT,"Main","--->Fatal Application Error<---");
@@ -42,13 +40,9 @@ int main() {
         glfwTerminate();
         Fatal_Error("Could not create Window",logger);
     }
-    Entity *ship = new Entity(logger,80,80);
-    MovableEntity *badGuy = new MovableEntity(logger,120,120);
-    Ship *myShip = new Ship(logger, 300,300,10);
     World *world = new World(logger,window,widthMM,heightMM);
-    world->AddEntity(ship);
-    world->AddEntity(badGuy);
-    world->AddEntity(myShip);
+    PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
+    world->AddEntity(thePlayer);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);

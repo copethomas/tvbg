@@ -46,10 +46,16 @@ void Ship::DamageShip(int hitDamage)
     Ship::Health =- hitDamage;
 }
 
-Ship::Ship(JAMCT_Logger* in_logger, int startx, int starty, int shipHealth)
+bool Ship::Shoot()
 {
-    Ship::Logger = in_logger;
-    Ship::XLocation = startx;
-    Ship::YLocation = starty;
-    Ship::Health = shipHealth;
+    return true;
 }
+
+
+Ship::Ship(JAMCT_Logger* in_logger, int startx, int starty, int in_health,World *home_world): MovableEntity(in_logger,startx,starty)
+{
+    Ship::Health = in_health;
+    Ship::theWorld = home_world;
+}
+
+
