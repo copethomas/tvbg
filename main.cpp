@@ -53,6 +53,19 @@ int main() {
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
     while (!glfwWindowShouldClose(window)) {
+        //Process Key Inputs
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+            thePlayer->MoveUp();
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+            thePlayer->MoveDown();
+        }
+
+
+
+
+
         world->Render();
     }
     delete world;

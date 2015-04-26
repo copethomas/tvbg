@@ -1,18 +1,6 @@
 #include "Ship.hpp"
-#include <GLFW/glfw3.h>
-
 bool Ship::Draw()
 {
-    int width = 40;
-    int height = 40;
-    int x = Entity::XLocation;
-    int y = Entity::YLocation;
-    glBegin(GL_QUADS);
-    glVertex2f(x, y);
-    glVertex2f(x + width, y);
-    glVertex2f(x + width, y + height);
-    glVertex2f(x, y + height);
-    glEnd();
     return true;
 }
 

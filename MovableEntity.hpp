@@ -4,9 +4,9 @@
 #include "JAMCT_Logger.hpp"
 class MovableEntity: public Entity {
 
-private:
+protected:
     int Speed;
-    int Direction;
+    int Direction = 0;
 
 public:
     virtual bool Draw();
