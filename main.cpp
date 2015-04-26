@@ -1,6 +1,8 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include "JAMCT_Logger.hpp"
 #include "World.hpp"
 #include "PlayerShip.hpp"
@@ -41,7 +43,7 @@ int main() {
         glfwTerminate();
         Fatal_Error("Could not create Window",logger);
     }
-    World *world = new World(logger,window,widthMM,heightMM);
+    World *world = new World(logger,window,heightMM,widthMM);
     PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
     world->AddEntity(thePlayer);
     glfwMakeContextCurrent(window);

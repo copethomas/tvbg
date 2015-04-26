@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include "MovableEntity.hpp"
 
 
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
@@ -21,16 +22,30 @@ World::~World() {
 void World::Render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
+    int counter = 0;
     for (Entity* renderEntity : World::WorldItems) {
       if (!renderEntity->Draw()) {
           Logger->Log(JAMCT_Logger::INFO,"World","Rendering Error Detected!");
         }
+        if (renderEntity->GetXLocation() < 0 | renderEntity->GetYLocation() < 0 | renderEntity->GetYLocation() > HEIGHT | renderEntity->GetXLocation() > WIDTH ) {
+           // Logger->Log(JAMCT_Logger::AERT,"World","Dead Entity Loc: X=" + std::to_string(renderEntity->GetXLocation()) + " Y=" + std::to_string(renderEntity->GetYLocation()) + " WIDTH=" + std::to_string(WIDTH) + " HEIGHT=" + std::to_string(HEIGHT));
+            renderEntity->SetDead(true);
+        }
+        MovableEntity *test;
+        test = (MovableEntity*) renderEntity;
+        test->DefaultMove();
+        //Last Kill them if needed.
+        if (renderEntity->GetDead()) {
+            WorldItems.erase(WorldItems.begin() + counter);
+            delete renderEntity;
+        }
+        counter++;
     }
     glfwSwapBuffers(World::Window);
     glfwPollEvents();
 }
 
 void World::AddEntity(Entity *newEntity) {
-    Logger->Log(JAMCT_Logger::INFO,"World","Adding new Entity..");
+   // Logger->Log(JAMCT_Logger::INFO,"World","Adding new Entity..");
     World::WorldItems.push_back(newEntity);
 }

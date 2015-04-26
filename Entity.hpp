@@ -14,6 +14,9 @@ public:
     void SetDead(bool dead);
     Entity(JAMCT_Logger *in_logger,int startx,int starty);
     virtual ~Entity();
+    int GetXLocation();
+    int GetYLocation();
+    bool GetDead();
 };
 
 

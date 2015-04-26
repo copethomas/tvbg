@@ -4,13 +4,11 @@
 #include "JAMCT_Logger.hpp"
 class MovableEntity: public Entity {
 
-private:
-    int KeyPress = 0;
-    const int CoolDown = 10;
-
 protected:
     int Speed;
     int Direction = 0;
+    int KeyPress = 0;
+    const int CoolDown = 10;
 
 public:
     virtual bool Draw();

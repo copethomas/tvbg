@@ -1,6 +1,6 @@
 #include "PlayerShip.hpp"
 #include <GLFW/glfw3.h>
-
+#include "BulletEntity.hpp"
 bool PlayerShip::Draw()
 {
     //Draw Player Ship. (Triangle)
@@ -55,13 +55,18 @@ bool PlayerShip::Draw()
 
 bool PlayerShip::DefaultMove()
 {
-    Logger->Log(JAMCT_Logger::ERRO,"Player Ship","No Default Move Defined. I am controled by the Player");
     return false;
 }
 
 bool PlayerShip::Shoot()
 {
-    Logger->Log(JAMCT_Logger::INFO,"Player Ship","Current Direction: " + std::to_string(Direction));
+ if (KeyPress == 0)
+    {
+        BulletEntity *test = new BulletEntity(Logger,XLocation,YLocation,Direction);
+        theWorld->AddEntity(test);
+        KeyPress = CoolDown;
+    }
+    return true;
 }
 
 PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world): Ship(in_logger,startx,starty,in_health,home_world)
