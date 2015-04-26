@@ -14,17 +14,19 @@ bool PlayerShip::Draw()
         glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
         break;
     case 45:
-        glVertex2f(XLocation+(Width/2),YLocation+ (Height/2));
+        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
         glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation - (Width/2),YLocation+(Height/2));
+        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
         break;
     case 90:
         glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
-        glVertex2f(XLocation + (Width/2),YLocation);
-        glVertex2f(XLocation - (Width/2),YLocation-(Height/2));
+        glVertex2f(XLocation+(Width/2),YLocation);
+        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
         break;
     case 135:
-
+        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
+        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
+        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
         break;
     case 180:
         glVertex2f(XLocation,YLocation-(Height /2));
@@ -32,15 +34,19 @@ bool PlayerShip::Draw()
         glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
         break;
     case 225:
-
+        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
+        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
+        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
         break;
     case 270:
         glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation - (Width/2),YLocation);
-        glVertex2f(XLocation + (Width/2),YLocation+(Height/2));
+        glVertex2f(XLocation-(Width/2),YLocation);
+        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
         break;
     case 315:
-
+        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
+        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
+        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
         break;
     }
     glEnd();
