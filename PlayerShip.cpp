@@ -14,16 +14,9 @@ bool PlayerShip::Draw()
         glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
         break;
     case 45:
-        glVertex2f(XLocation+(Width/3), YLocation + (Height/3));
-
-        glVertex2f(XLocation,YLocation - (Height/3));
-
-        glVertex2f(XLocation-(Width/3), YLocation + (Height/3));
-
-
-
-
-
+        glVertex2f(XLocation+(Width/2),YLocation+ (Height/2));
+        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
+        glVertex2f(XLocation - (Width/2),YLocation+(Height/2));
         break;
     case 90:
         glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
