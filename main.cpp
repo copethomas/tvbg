@@ -35,7 +35,8 @@ int main() {
     heightMM = mode->height;
     widthMM = mode->width;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Size = " + std::to_string(widthMM) + " X " + std::to_string(heightMM));
-    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
+    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
+    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
     if (!window) {
         glfwTerminate();
         Fatal_Error("Could not create Window",logger);
@@ -57,15 +58,19 @@ int main() {
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
             thePlayer->MoveUp();
         }
-
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
             thePlayer->MoveDown();
         }
-
-
-
-
-
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            thePlayer->MoveLeft();
+        }
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+            thePlayer->MoveRight();
+        }
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            thePlayer->Shoot();
+        }
+        thePlayer->KeyCoolDown();
         world->Render();
     }
     delete world;

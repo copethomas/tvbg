@@ -6,10 +6,6 @@ class PlayerShip: public Ship {
 public:
     virtual bool Draw();
     virtual bool DefaultMove();
-    virtual bool MoveUp();
-    virtual bool MoveDown();
-    virtual bool MoveLeft();
-    virtual bool MoveRight();
     virtual bool Shoot();
     PlayerShip(JAMCT_Logger *in_logger,int startx,int starty,int in_health,World *home_world);
 

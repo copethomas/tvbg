@@ -4,6 +4,10 @@
 #include "JAMCT_Logger.hpp"
 class MovableEntity: public Entity {
 
+private:
+    int KeyPress = 0;
+    const int CoolDown = 10;
+
 protected:
     int Speed;
     int Direction = 0;
@@ -11,10 +15,11 @@ protected:
 public:
     virtual bool Draw();
     virtual bool DefaultMove();
-    virtual bool MoveUp();
-    virtual bool MoveDown();
-    virtual bool MoveLeft();
-    virtual bool MoveRight();
+    bool MoveUp();
+    bool MoveDown();
+    bool MoveLeft();
+    bool MoveRight();
+    void KeyCoolDown();
     MovableEntity(JAMCT_Logger *in_logger,int startx,int starty);
 
 };
