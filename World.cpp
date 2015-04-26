@@ -27,7 +27,7 @@ void World::Render() {
       if (!renderEntity->Draw()) {
           Logger->Log(JAMCT_Logger::INFO,"World","Rendering Error Detected!");
         }
-        if (renderEntity->GetXLocation() < 0 | renderEntity->GetYLocation() < 0 | renderEntity->GetYLocation() > HEIGHT | renderEntity->GetXLocation() > WIDTH ) {
+        if ((renderEntity->GetXLocation() < 0) | (renderEntity->GetYLocation() < 0) | (renderEntity->GetYLocation() > HEIGHT) | (renderEntity->GetXLocation() > WIDTH) ) {
            // Logger->Log(JAMCT_Logger::AERT,"World","Dead Entity Loc: X=" + std::to_string(renderEntity->GetXLocation()) + " Y=" + std::to_string(renderEntity->GetYLocation()) + " WIDTH=" + std::to_string(WIDTH) + " HEIGHT=" + std::to_string(HEIGHT));
             renderEntity->SetDead(true);
         }
@@ -49,3 +49,13 @@ void World::AddEntity(Entity *newEntity) {
    // Logger->Log(JAMCT_Logger::INFO,"World","Adding new Entity..");
     World::WorldItems.push_back(newEntity);
 }
+
+bool World::EqualsBoundCheck(int loc, int target,int bound)
+{
+    if ((loc > (target - bound)) & (loc < (target + bound))) {
+        return true;
+    }else{
+        return false;
+    }
+}
+

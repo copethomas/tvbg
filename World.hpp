@@ -18,6 +18,7 @@ public:
     void Render();
      World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width);
     ~World();
+    bool EqualsBoundCheck(int loc, int target, int bound);
 
 };
 

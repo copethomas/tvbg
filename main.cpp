@@ -1,11 +1,10 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
-#include <chrono>
-#include <thread>
 #include "JAMCT_Logger.hpp"
 #include "World.hpp"
 #include "PlayerShip.hpp"
+#include "EnemyShip.hpp"
 
 void Fatal_Error(std::string message,JAMCT_Logger *logger) {
     logger->Log(JAMCT_Logger::CRIT,"Main","--->Fatal Application Error<---");
@@ -45,7 +44,9 @@ int main() {
     }
     World *world = new World(logger,window,heightMM,widthMM);
     PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
+    EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
     world->AddEntity(thePlayer);
+    world->AddEntity(test);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);
