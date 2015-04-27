@@ -57,22 +57,22 @@ int main() {
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
     while (!glfwWindowShouldClose(window)) {
-        //Process Key Inputs
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            thePlayer->MoveUp();
-        }
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            thePlayer->MoveDown();
-        }
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            thePlayer->MoveLeft();
-        }
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            thePlayer->MoveRight();
-        }
-        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-            thePlayer->Shoot();
-        }
+        //Process Key Input.
+            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+                thePlayer->MoveUp();
+            }
+            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+                thePlayer->MoveDown();
+            }
+            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+                thePlayer->MoveLeft();
+            }
+            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+                thePlayer->MoveRight();
+            }
+            if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+                thePlayer->Shoot();
+            }
         thePlayer->KeyCoolDown();
         world->Render();
     }

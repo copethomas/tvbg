@@ -1,6 +1,6 @@
 #include "World.hpp"
 #include "MovableEntity.hpp"
-
+#include <assert.h>
 
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
@@ -23,6 +23,10 @@ void World::Render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
     int counter = 0;
+    if (WorldItems.size() == 0) {
+        Logger->Log(JAMCT_Logger::EMER,"World","No Extities to Render!");
+        assert(WorldItems.size() != 0);
+    }
     for (Entity* renderEntity : World::WorldItems) {
       if (!renderEntity->Draw()) {
           Logger->Log(JAMCT_Logger::INFO,"World","Rendering Error Detected!");
@@ -41,6 +45,9 @@ void World::Render() {
         }
         counter++;
     }
+    glFlush();
+    glFinish();
+    glfwSwapInterval(1);
     glfwSwapBuffers(World::Window);
     glfwPollEvents();
 }
