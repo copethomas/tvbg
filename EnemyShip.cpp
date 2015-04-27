@@ -44,4 +44,6 @@ EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_hea
     Direction = 0; //Pointing Forwards.
     Speed = 4; //Sort of Fast Ship
     trackingPlayer = thePlayer;
+    Height = 30;
+    Width = 30;
 }

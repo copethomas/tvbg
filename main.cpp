@@ -36,17 +36,17 @@ int main() {
     heightMM = mode->height;
     widthMM = mode->width;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Size = " + std::to_string(widthMM) + " X " + std::to_string(heightMM));
-    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
-    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
+    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
+    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
     if (!window) {
         glfwTerminate();
         Fatal_Error("Could not create Window",logger);
     }
     World *world = new World(logger,window,heightMM,widthMM);
     PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
-    //EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
+    EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
     world->AddEntity(thePlayer);
-    //world->AddEntity(test);
+    world->AddEntity(test);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);

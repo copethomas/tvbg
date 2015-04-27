@@ -73,6 +73,8 @@ PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_h
 {
     Direction = 0; //Pointing Forwards.
     Speed = 4; //Sort of Fast Ship
+    Height = 30;
+    Width = 30;
 }
 
 void PlayerShip::WKey(bool keyState)

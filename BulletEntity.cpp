@@ -19,7 +19,7 @@ void DrawCircle(float cx, float cy, float r, int num_segments)
 
 bool BulletEntity::Draw()
 {
- DrawCircle(XLocation,YLocation,4,160);
+ DrawCircle(XLocation,YLocation,Width,160);
  return true;
 }
 
@@ -32,4 +32,6 @@ BulletEntity::BulletEntity(JAMCT_Logger* in_logger, int startx, int starty, int 
 {
     BulletEntity::Direction = heading_direction;
     BulletEntity::Speed = 20;
+    Width = 4;
+    Height = 4;
 }

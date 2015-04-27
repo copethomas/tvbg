@@ -6,6 +6,8 @@ class Entity{
 protected:
     int XLocation = 0;
     int YLocation = 0;
+    int Height = 1;
+    int Width = 1;
     bool IsDead = false;
     JAMCT_Logger *Logger;
 

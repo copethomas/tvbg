@@ -1,6 +1,8 @@
 #include "World.hpp"
 #include "MovableEntity.hpp"
 #include <assert.h>
+#include <vector>
+#include <map>
 
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
@@ -65,4 +67,48 @@ bool World::EqualsBoundCheck(int loc, int target,int bound)
         return false;
     }
 }
+
+void World::RunCollisionDetection()
+{
+    //Broad Detection First. "What Entitys 'Could' Collide?"
+    bool colDetected = false;
+    for (Entity* collisionEntity : World::WorldItems) {
+        colDetected = false; //Assuming no Detections will be made.
+        std::vector<Entity*>* colideEntities = new std::vector<Entity*>; //Here I'm creating a pointer to a new vector of entites in memory.
+        for (Entity* checkEntity : World::WorldItems) {
+            //If the Entity Has the Possibility of Coliding on the X or Y then add them to the check list.
+            if ((EqualsBoundCheck(collisionEntity->GetXLocation(),checkEntity->GetXLocation(),BROAD_DETECTION_RANGE))|(EqualsBoundCheck(collisionEntity->GetYLocation(),checkEntity->GetYLocation(),BROAD_DETECTION_RANGE))) {
+                colDetected = true;
+                //Right We have Found Someone. Add them to the list
+                colideEntities->push_back(checkEntity);
+            }
+        }
+        if (colDetected == false) {
+            //If we go through all that and dont find anything then delete the unused mem.
+            delete colideEntities;
+        }else{
+            //We did find some detections so add the entity and the vector of detections to the map to be checked in the next stage.
+            EntityColls.emplace(collisionEntity,colideEntities);
+        }
+    }
+
+    //Next up if processing the Possible Mataches for a Collision.
+    for (EntityCollsIterator = EntityColls.begin(); EntityCollsIterator != EntityColls.end(); EntityCollsIterator++)
+    {
+        Entity* entityInQuestion = EntityCollsIterator->first;
+        std::vector<Entity*>* entityToCheck = EntityCollsIterator->second;
+        //Loop through Entitys To Check at match aginst the entity inquestion.
+        for (Entity* checkme : *entityToCheck) { //Using the '*' here to dereference the vector.
+
+
+        }
+
+
+    }
+
+    //DONT FORGET TO DELETE WHEN DONE!!!
+
+
+}
+
 

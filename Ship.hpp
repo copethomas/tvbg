@@ -8,8 +8,6 @@ class Ship: public MovableEntity {
 protected:
     int Health;
     World *theWorld;
-    int Height = 30;
-    int Width = 30;
 
 public:
     virtual bool Draw();
