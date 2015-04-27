@@ -44,9 +44,9 @@ int main() {
     }
     World *world = new World(logger,window,heightMM,widthMM);
     PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
-    EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
+    //EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
     world->AddEntity(thePlayer);
-    world->AddEntity(test);
+    //world->AddEntity(test);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);
@@ -58,21 +58,13 @@ int main() {
     glLoadIdentity();
     while (!glfwWindowShouldClose(window)) {
         //Process Key Input.
-            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                thePlayer->MoveUp();
-            }
-            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-                thePlayer->MoveDown();
-            }
-            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-                thePlayer->MoveLeft();
-            }
-            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-                thePlayer->MoveRight();
-            }
-            if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        thePlayer->WKey((glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS));
+        thePlayer->AKey((glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS));
+        thePlayer->SKey((glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS));
+        thePlayer->DKey((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS));
+        if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)) {
                 thePlayer->Shoot();
-            }
+        }
         thePlayer->KeyCoolDown();
         world->Render();
     }

@@ -60,7 +60,7 @@ bool PlayerShip::DefaultMove()
 
 bool PlayerShip::Shoot()
 {
- if (KeyPress == 0)
+    if (KeyPress == 0)
     {
         BulletEntity *test = new BulletEntity(Logger,XLocation,YLocation,Direction);
         theWorld->AddEntity(test);
@@ -74,4 +74,84 @@ PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_h
     Direction = 0; //Pointing Forwards.
     Speed = 4; //Sort of Fast Ship
 }
+
+void PlayerShip::WKey(bool keyState)
+{
+    if (keyState)
+    {
+        YLocation+=Speed;
+        if (Keys[Key_Name::A] == false & Keys[Key_Name::D] == false)
+        {
+            Direction = 0;
+        }
+        Keys[Key_Name::W] = true;
+    }
+    else
+    {
+        Keys[Key_Name::W] = false;
+    }
+}
+
+void PlayerShip::AKey(bool keyState)
+{
+    if (keyState)
+    {
+        XLocation-=Speed;
+        Direction = 270;
+        if (Keys[Key_Name::W] == true)
+        {
+            Direction = 315;
+        }
+        if (Keys[Key_Name::S] == true)
+        {
+            Direction = 225;
+        }
+        Keys[Key_Name::A] = true;
+    }
+    else
+    {
+        Keys[Key_Name::A] = false;
+    }
+}
+
+void PlayerShip::SKey(bool keyState)
+{
+    if (keyState)
+    {
+        YLocation-=Speed;
+        if (Keys[Key_Name::A] == false & Keys[Key_Name::D] == false)
+        {
+            Direction = 180;
+        }
+        Keys[Key_Name::S] = true;
+    }
+    else
+    {
+        Keys[Key_Name::S] = false;
+    }
+}
+
+void PlayerShip::DKey(bool keyState)
+{
+    if (keyState)
+    {
+        XLocation+=Speed;
+        Direction = 90;
+        if (Keys[Key_Name::W] == true)
+        {
+            Direction = 45;
+        }
+        if (Keys[Key_Name::S] == true)
+        {
+            Direction = 135;
+        }
+        Keys[Key_Name::D] = true;
+    }
+    else
+    {
+        Keys[Key_Name::D] = false;
+    }
+}
+
+
 
