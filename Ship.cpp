@@ -23,6 +23,7 @@ Ship::Ship(JAMCT_Logger* in_logger, int startx, int starty, int in_health,World 
 {
     Ship::Health = in_health;
     Ship::theWorld = home_world;
+    Damage = 0; //Coliding with the Ship will not do damage.
 }
 
 

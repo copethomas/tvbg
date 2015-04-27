@@ -6,7 +6,6 @@
 class Ship: public MovableEntity {
 
 protected:
-    int Health;
     World *theWorld;
 
 public:

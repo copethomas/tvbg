@@ -46,4 +46,6 @@ EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_hea
     trackingPlayer = thePlayer;
     Height = 30;
     Width = 30;
+    Health = 1;
+    Damage = 100;
 }

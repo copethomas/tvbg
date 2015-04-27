@@ -80,6 +80,7 @@ void World::RunCollisionDetection()
             if ((EqualsBoundCheck(collisionEntity->GetXLocation(),checkEntity->GetXLocation(),BROAD_DETECTION_RANGE))|(EqualsBoundCheck(collisionEntity->GetYLocation(),checkEntity->GetYLocation(),BROAD_DETECTION_RANGE))) {
                 colDetected = true;
                 //Right We have Found Someone. Add them to the list
+                Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Possibilite Detected");
                 colideEntities->push_back(checkEntity);
             }
         }
@@ -93,22 +94,24 @@ void World::RunCollisionDetection()
     }
 
     //Next up if processing the Possible Mataches for a Collision.
+    bool colConfirmed = false;
     for (EntityCollsIterator = EntityColls.begin(); EntityCollsIterator != EntityColls.end(); EntityCollsIterator++)
     {
         Entity* entityInQuestion = EntityCollsIterator->first;
         std::vector<Entity*>* entityToCheck = EntityCollsIterator->second;
         //Loop through Entitys To Check at match aginst the entity inquestion.
         for (Entity* checkme : *entityToCheck) { //Using the '*' here to dereference the vector.
-
-
+            //Perform Collision Detections between two enties.
+            colConfirmed = false;
+            if ((EqualsBoundCheck(entityInQuestion->GetXLocation(),checkme->GetXLocation(),(entityInQuestion->GetWidth()+checkme->GetWidth())))|(EqualsBoundCheck(entityInQuestion->GetYLocation(),checkme->GetYLocation(),(entityInQuestion->GetHeight()+checkme->GetHeight())))) {
+                    //WE HAVE A COLLISION!
+                    entityInQuestion->Colision(checkme);
+            }
         }
-
-
+        delete entityToCheck; //Delete the Vector We dont need it.
     }
-
     //DONT FORGET TO DELETE WHEN DONE!!!
-
-
+    EntityColls.clear();
 }
 
 

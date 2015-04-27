@@ -34,4 +34,6 @@ BulletEntity::BulletEntity(JAMCT_Logger* in_logger, int startx, int starty, int 
     BulletEntity::Speed = 20;
     Width = 4;
     Height = 4;
+    Health = 1;
+    Damage = 1;
 }
