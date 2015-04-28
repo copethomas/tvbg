@@ -68,6 +68,30 @@ bool World::EqualsBoundCheck(int loc, int target,int bound)
     }
 }
 
+// TODO (tom#1#28/04/15): Need to opertimise this check
+bool PosibbleCollision(Entity *target , Entity *check, int bound) {
+
+int x = target->GetXLocation();
+int y = target->GetYLocation();
+
+int x_upper = x + bound;
+int x_lower = x - bound;
+
+int y_upper = y + bound;
+int y_lower = y - bound;
+
+if (!((check->GetXLocation() < x_upper)&(check->GetXLocation() > x_lower)))   {
+    return false
+}
+
+if (!((check->GetYLocation() < y_upper)&(check->GetYLocation() > y_lower)))   {
+    return false
+}
+
+return true;
+
+}
+
 void World::RunCollisionDetection()
 {
     //Broad Detection First. "What Entitys 'Could' Collide?"
@@ -80,7 +104,7 @@ void World::RunCollisionDetection()
             if ((EqualsBoundCheck(collisionEntity->GetXLocation(),checkEntity->GetXLocation(),BROAD_DETECTION_RANGE))|(EqualsBoundCheck(collisionEntity->GetYLocation(),checkEntity->GetYLocation(),BROAD_DETECTION_RANGE))) {
                 colDetected = true;
                 //Right We have Found Someone. Add them to the list
-                Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Possibilite Detected");
+                //Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Possibilite Detected");
                 colideEntities->push_back(checkEntity);
             }
         }
