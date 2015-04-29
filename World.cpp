@@ -71,25 +71,31 @@ bool World::EqualsBoundCheck(int loc, int target,int bound)
 // TODO (tom#1#28/04/15): Need to opertimise this check
 bool PosibbleCollision(Entity *target , Entity *check, int bound) {
 
-int x = target->GetXLocation();
-int y = target->GetYLocation();
+    int x = target->GetXLocation();
+    int y = target->GetYLocation();
 
-int x_upper = x + bound;
-int x_lower = x - bound;
+    int x_upper = x + bound;
+    int x_lower = x - bound;
 
-int y_upper = y + bound;
-int y_lower = y - bound;
+    int y_upper = y + bound;
+    int y_lower = y - bound;
 
-if (!((check->GetXLocation() < x_upper)&(check->GetXLocation() > x_lower)))   {
-    return false
+    if (!((check->GetXLocation() < x_upper)&&(check->GetXLocation() > x_lower)))   {
+        return false;
+    }
+
+    if (!((check->GetYLocation() < y_upper)&&(check->GetYLocation() > y_lower)))   {
+        return false;
+    };
+    return true;
 }
 
-if (!((check->GetYLocation() < y_upper)&(check->GetYLocation() > y_lower)))   {
-    return false
-}
-
-return true;
-
+bool CheckCollision(Entity *target , Entity *check) {
+    if (target->GetXLocation() < check->GetXLocation() + check->GetWidth() && target->GetXLocation() + target->GetWidth() > check->GetXLocation() && target->GetYLocation() < check->GetYLocation() + check->GetHeight() && target->GetHeight() + target->GetYLocation() > check->GetYLocation()) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 void World::RunCollisionDetection()
@@ -100,11 +106,11 @@ void World::RunCollisionDetection()
         colDetected = false; //Assuming no Detections will be made.
         std::vector<Entity*>* colideEntities = new std::vector<Entity*>; //Here I'm creating a pointer to a new vector of entites in memory.
         for (Entity* checkEntity : World::WorldItems) {
+            if (checkEntity==collisionEntity) {break;} //An Entity Can't collide with it's seld :D
             //If the Entity Has the Possibility of Coliding on the X or Y then add them to the check list.
-            if ((EqualsBoundCheck(collisionEntity->GetXLocation(),checkEntity->GetXLocation(),BROAD_DETECTION_RANGE))|(EqualsBoundCheck(collisionEntity->GetYLocation(),checkEntity->GetYLocation(),BROAD_DETECTION_RANGE))) {
+            if (PosibbleCollision(collisionEntity,checkEntity,BROAD_DETECTION_RANGE)) {
                 colDetected = true;
                 //Right We have Found Someone. Add them to the list
-                //Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Possibilite Detected");
                 colideEntities->push_back(checkEntity);
             }
         }
@@ -116,7 +122,9 @@ void World::RunCollisionDetection()
             EntityColls.emplace(collisionEntity,colideEntities);
         }
     }
-
+    if (EntityColls.size() > 0) {
+        Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Detected " + std::to_string(EntityColls.size()) + " possible Collisions." );
+    }
     //Next up if processing the Possible Mataches for a Collision.
     bool colConfirmed = false;
     for (EntityCollsIterator = EntityColls.begin(); EntityCollsIterator != EntityColls.end(); EntityCollsIterator++)
@@ -127,8 +135,9 @@ void World::RunCollisionDetection()
         for (Entity* checkme : *entityToCheck) { //Using the '*' here to dereference the vector.
             //Perform Collision Detections between two enties.
             colConfirmed = false;
-            if ((EqualsBoundCheck(entityInQuestion->GetXLocation(),checkme->GetXLocation(),(entityInQuestion->GetWidth()+checkme->GetWidth())))|(EqualsBoundCheck(entityInQuestion->GetYLocation(),checkme->GetYLocation(),(entityInQuestion->GetHeight()+checkme->GetHeight())))) {
+            if (CheckCollision(entityInQuestion,checkme)) {
                     //WE HAVE A COLLISION!
+                    Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Detected");
                     entityInQuestion->Colision(checkme);
             }
         }

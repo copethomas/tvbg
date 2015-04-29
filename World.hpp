@@ -13,7 +13,7 @@ private:
     GLFWwindow* Window;
     int HEIGHT;
     int WIDTH;
-    const int BROAD_DETECTION_RANGE = 5;
+    const int BROAD_DETECTION_RANGE = 100;
     std::map<Entity*, std::vector<Entity*>*> EntityColls; //A Map Containing a pointer to a Vectory of Object. Weird :)
     std::map<Entity*, std::vector<Entity*>*>::iterator EntityCollsIterator;
 
