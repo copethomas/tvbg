@@ -44,7 +44,7 @@ void World::Render() {
         if (renderEntity->GetDead()) {
             WorldItems.erase(WorldItems.begin() + counter);
             delete renderEntity;
-            counter--; //Theire one less thing to count becuase we just deleted one.
+
         }
         counter++;
     }

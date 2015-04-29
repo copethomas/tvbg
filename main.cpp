@@ -62,6 +62,7 @@ int main() {
         thePlayer->AKey((glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS));
         thePlayer->SKey((glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS));
         thePlayer->DKey((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS));
+        thePlayer->DebugKey((glfwGetKey(window, GLFW_KEY_APOSTROPHE) == GLFW_PRESS));
         if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)) {
                 thePlayer->Shoot();
         }

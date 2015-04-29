@@ -52,7 +52,7 @@ void EnemyShip::Colision(Entity* colided_with)
 EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world, PlayerShip *thePlayer): Ship(in_logger,startx,starty,in_health,home_world)
 {
     Direction = 0; //Pointing Forwards.
-    Speed = 0; //Sort of Fast Ship
+    Speed = 4; //Sort of Fast Ship
     trackingPlayer = thePlayer;
     Height = 30;
     Width = 30;

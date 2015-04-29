@@ -1,6 +1,7 @@
 #include "PlayerShip.hpp"
 #include <GLFW/glfw3.h>
 #include "BulletEntity.hpp"
+#include "EnemyShip.hpp"
 bool PlayerShip::Draw()
 {
     //Draw Player Ship. (Triangle)
@@ -68,6 +69,17 @@ bool PlayerShip::Shoot()
     }
     return true;
 }
+void PlayerShip::DebugKey(bool keyState)
+{
+    if (KeyPress == 0 && (keyState == true))
+    {
+        EnemyShip *test = new EnemyShip(Logger,50,50,1,theWorld,this);
+        theWorld->AddEntity(test);
+        KeyPress = CoolDown;
+    }
+}
+
+
 
 PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world): Ship(in_logger,startx,starty,in_health,home_world)
 {

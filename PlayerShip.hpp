@@ -16,6 +16,7 @@ public:
     void AKey(bool keyState);
     void SKey(bool keyState);
     void DKey(bool keyState);
+    void DebugKey(bool keyState);
 
 
 };
