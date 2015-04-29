@@ -12,6 +12,9 @@ bool Ship::DefaultMove()
 void Ship::DamageShip(int hitDamage)
 {
     Ship::Health =- hitDamage;
+    if (Health <= 0 ) {
+        IsDead = true;
+    }
 }
 
 bool Ship::Shoot()

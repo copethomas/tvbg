@@ -43,20 +43,14 @@ int Entity::GetHeight()
     return Height;
 }
 
-void Entity::Colision(Entity *colided_with)
-{
-    if (! (Health == -1)) { //If not Invisable
-        Health -= colided_with->GetDamage();
-        if (Health <= 0) {
-            IsDead = true;
-        }
-
-    }
-}
-
 int Entity::GetDamage()
 {
     return Damage;
+}
+
+void Entity::Colision(Entity* colided_with)
+{
+    //Do nothing.
 }
 
 

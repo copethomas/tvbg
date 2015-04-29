@@ -28,6 +28,15 @@ bool BulletEntity::DefaultMove()
     MoveUp();
 }
 
+void BulletEntity::Colision(Entity* colided_with)
+{
+    std::string colided_with_name = std::string(typeid(*colided_with).name());
+    if (  colided_with_name.compare("9EnemyShip") == 0  ) {
+       BulletEntity::SetDead(true);
+    }
+}
+
+
 BulletEntity::BulletEntity(JAMCT_Logger* in_logger, int startx, int starty, int heading_direction): MovableEntity(in_logger,startx,starty)
 {
     BulletEntity::Direction = heading_direction;

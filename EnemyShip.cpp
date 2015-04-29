@@ -1,6 +1,7 @@
 #include "EnemyShip.hpp"
 #include "PlayerShip.hpp"
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 bool EnemyShip::Draw()
 {
@@ -38,6 +39,15 @@ bool EnemyShip::Shoot()
 {
 
 }
+void EnemyShip::Colision(Entity* colided_with)
+{
+    std::string colided_with_name = std::string(typeid(*colided_with).name());
+    if (  colided_with_name.compare("12BulletEntity") == 0  ) {
+       EnemyShip::DamageShip(colided_with->GetDamage());
+    }
+}
+
+
 
 EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world, PlayerShip *thePlayer): Ship(in_logger,startx,starty,in_health,home_world)
 {

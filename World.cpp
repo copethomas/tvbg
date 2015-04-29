@@ -44,6 +44,7 @@ void World::Render() {
         if (renderEntity->GetDead()) {
             WorldItems.erase(WorldItems.begin() + counter);
             delete renderEntity;
+            counter--; //Theire one less thing to count becuase we just deleted one.
         }
         counter++;
     }
@@ -100,18 +101,24 @@ bool CheckCollision(Entity *target , Entity *check) {
 
 void World::RunCollisionDetection()
 {
+
+  //  if (WorldItems.size() == 3) {
+//      Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","NOW!!!");
+   // }
+
     //Broad Detection First. "What Entitys 'Could' Collide?"
     bool colDetected = false;
-    for (Entity* collisionEntity : World::WorldItems) {
+     for (Entity* collisionEntity : World::WorldItems) {
         colDetected = false; //Assuming no Detections will be made.
         std::vector<Entity*>* colideEntities = new std::vector<Entity*>; //Here I'm creating a pointer to a new vector of entites in memory.
         for (Entity* checkEntity : World::WorldItems) {
-            if (checkEntity==collisionEntity) {break;} //An Entity Can't collide with it's seld :D
+            if (!(checkEntity==collisionEntity)) { //An Entity Can't collide with it's seld :D
             //If the Entity Has the Possibility of Coliding on the X or Y then add them to the check list.
             if (PosibbleCollision(collisionEntity,checkEntity,BROAD_DETECTION_RANGE)) {
                 colDetected = true;
                 //Right We have Found Someone. Add them to the list
                 colideEntities->push_back(checkEntity);
+            }
             }
         }
         if (colDetected == false) {
@@ -122,9 +129,9 @@ void World::RunCollisionDetection()
             EntityColls.emplace(collisionEntity,colideEntities);
         }
     }
-    if (EntityColls.size() > 0) {
-        Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Detected " + std::to_string(EntityColls.size()) + " possible Collisions." );
-    }
+    //if (EntityColls.size() > 0) {
+    //    Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Detected " + std::to_string(EntityColls.size()) + " possible Collisions." );
+   // }
     //Next up if processing the Possible Mataches for a Collision.
     bool colConfirmed = false;
     for (EntityCollsIterator = EntityColls.begin(); EntityCollsIterator != EntityColls.end(); EntityCollsIterator++)
@@ -137,7 +144,7 @@ void World::RunCollisionDetection()
             colConfirmed = false;
             if (CheckCollision(entityInQuestion,checkme)) {
                     //WE HAVE A COLLISION!
-                    Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Detected");
+                    //Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","Detected");
                     entityInQuestion->Colision(checkme);
             }
         }

@@ -11,6 +11,7 @@ public:
     virtual bool DefaultMove();
     virtual bool Shoot();
     EnemyShip(JAMCT_Logger *in_logger,int startx,int starty,int in_health,World *home_world,PlayerShip *thePlayer);
+    virtual void Colision(Entity *colided_with);
 };
 
 
