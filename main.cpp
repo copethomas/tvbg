@@ -21,7 +21,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 int main() {
-    std::cout << "TVBG Version 0.3.8.9\n";
+    std::cout << "TVBG Version " << "0.7.4.3" << "\n";
     std::cout << "Created by Thomas Cope\n\n";
     std::cout << "Starting Application...\n\n";
     JAMCT_Logger *logger  = new JAMCT_Logger(0);
@@ -74,6 +74,7 @@ int main() {
     logger->Log(JAMCT_Logger::INFO,"Main","Window Closes. Application going down...");
     glfwDestroyWindow(window);
     glfwTerminate();
+    logger->Flush();
     logger->Shutdown();
     delete logger;
     return 0;

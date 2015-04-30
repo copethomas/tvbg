@@ -1,5 +1,6 @@
 #include "World.hpp"
 #include "MovableEntity.hpp"
+#include "Score.hpp"
 #include <algorithm>
 #include <assert.h>
 #include <vector>
@@ -9,7 +10,9 @@ World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int 
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
     World::WIDTH = screen_width;
     World::HEIGHT = screen_hight;
-
+    Score *gameScore = new Score(Logger,0,(HEIGHT - 20));
+    World::Scoreboard = gameScore;
+    AddEntity(gameScore);
 }
 
 World::~World() {
@@ -41,9 +44,9 @@ void World::Render() {
            // Logger->Log(JAMCT_Logger::AERT,"World","Dead Entity Loc: X=" + std::to_string(renderEntity->GetXLocation()) + " Y=" + std::to_string(renderEntity->GetYLocation()) + " WIDTH=" + std::to_string(WIDTH) + " HEIGHT=" + std::to_string(HEIGHT));
             renderEntity->SetDead(true);
         }
-        MovableEntity *test;
-        test = (MovableEntity*) renderEntity;
-        test->DefaultMove();
+        if( MovableEntity* movable = dynamic_cast< MovableEntity* >( renderEntity ) ) {
+            movable->DefaultMove();
+        }
         //Process Dead Entities.
         if (renderEntity->GetDead()) {
             WorldItemsIterator = WorldItems.erase(WorldItemsIterator);
@@ -158,3 +161,7 @@ void World::RunCollisionDetection()
 }
 
 
+void World::AddPoints(int points)
+{
+    World::Scoreboard->AddScore(points);
+}

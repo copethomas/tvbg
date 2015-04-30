@@ -44,6 +44,7 @@ void EnemyShip::Colision(Entity* colided_with)
     std::string colided_with_name = std::string(typeid(*colided_with).name());
     if (  colided_with_name.compare("12BulletEntity") == 0  ) {
        EnemyShip::DamageShip(colided_with->GetDamage());
+       theWorld->AddPoints(100);
     }
 }
 
