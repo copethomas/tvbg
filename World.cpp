@@ -1,5 +1,6 @@
 #include "World.hpp"
 #include "MovableEntity.hpp"
+#include <algorithm>
 #include <assert.h>
 #include <vector>
 #include <map>
@@ -24,11 +25,11 @@ World::~World() {
 void World::Render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    int counter = 0;
     if (WorldItems.size() == 0) {
         Logger->Log(JAMCT_Logger::EMER,"World","No Extities to Render!");
         assert(WorldItems.size() != 0);
     }
+    int counter = 0;
     for (Entity* renderEntity : World::WorldItems) {
       if (!renderEntity->Draw()) {
           Logger->Log(JAMCT_Logger::INFO,"World","Rendering Error Detected!");
@@ -40,14 +41,20 @@ void World::Render() {
         MovableEntity *test;
         test = (MovableEntity*) renderEntity;
         test->DefaultMove();
-        //Last Kill them if needed.
+        //Process Dead Entities.
         if (renderEntity->GetDead()) {
-            WorldItems.erase(WorldItems.begin() + counter);
-            delete renderEntity;
-
+            CleanWorldItems.push_back(renderEntity);
         }
         counter++;
     }
+    //Clean up Entities.
+    for (Entity* tobedeleted : World::CleanWorldItems) {
+        CleanWorldItemsIterator = find (WorldItems.begin(), WorldItems.end(), tobedeleted);
+        int tmp = CleanWorldItemsIterator-CleanWorldItems.begin();
+        WorldItems.erase(WorldItems.begin() - tmp);
+        delete tobedeleted;
+    }
+    World::CleanWorldItems.clear();
     glFlush();
     glFinish();
     glfwSwapInterval(1);
