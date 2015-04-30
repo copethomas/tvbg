@@ -29,8 +29,11 @@ void World::Render() {
         Logger->Log(JAMCT_Logger::EMER,"World","No Extities to Render!");
         assert(WorldItems.size() != 0);
     }
-    int counter = 0;
-    for (Entity* renderEntity : World::WorldItems) {
+
+    auto WorldItemsIterator = WorldItems.begin();
+    while(WorldItemsIterator != WorldItems.end()) {
+    int index = std::distance(WorldItems.begin(), WorldItemsIterator);
+    Entity* renderEntity = WorldItems.at(index);
       if (!renderEntity->Draw()) {
           Logger->Log(JAMCT_Logger::INFO,"World","Rendering Error Detected!");
         }
@@ -43,18 +46,11 @@ void World::Render() {
         test->DefaultMove();
         //Process Dead Entities.
         if (renderEntity->GetDead()) {
-            CleanWorldItems.push_back(renderEntity);
+            WorldItemsIterator = WorldItems.erase(WorldItemsIterator);
+        }else {
+            ++WorldItemsIterator;
         }
-        counter++;
     }
-    //Clean up Entities.
-    for (Entity* tobedeleted : World::CleanWorldItems) {
-        CleanWorldItemsIterator = find (WorldItems.begin(), WorldItems.end(), tobedeleted);
-        int tmp = CleanWorldItemsIterator-CleanWorldItems.begin();
-        WorldItems.erase(WorldItems.begin() - tmp);
-        delete tobedeleted;
-    }
-    World::CleanWorldItems.clear();
     glFlush();
     glFinish();
     glfwSwapInterval(1);

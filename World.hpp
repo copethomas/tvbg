@@ -9,8 +9,6 @@ class World {
 
 private:
     std::vector<Entity*> WorldItems;
-    std::vector<Entity*> CleanWorldItems;
-    std::vector<Entity*>::iterator CleanWorldItemsIterator;
     JAMCT_Logger *Logger;
     GLFWwindow* Window;
     int HEIGHT;

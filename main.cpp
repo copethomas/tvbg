@@ -21,7 +21,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 int main() {
-    std::cout << "TVBG Version 0.0.2.8\n";
+    std::cout << "TVBG Version 0.3.8.9\n";
     std::cout << "Created by Thomas Cope\n\n";
     std::cout << "Starting Application...\n\n";
     JAMCT_Logger *logger  = new JAMCT_Logger(0);
@@ -36,8 +36,8 @@ int main() {
     heightMM = mode->height;
     widthMM = mode->width;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Size = " + std::to_string(widthMM) + " X " + std::to_string(heightMM));
-    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
-    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
+    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
+    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
     if (!window) {
         glfwTerminate();
         Fatal_Error("Could not create Window",logger);
