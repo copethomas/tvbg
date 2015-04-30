@@ -1,5 +1,6 @@
 #include "EnemyShip.hpp"
 #include "PlayerShip.hpp"
+#include "Explosion.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -44,6 +45,8 @@ void EnemyShip::Colision(Entity* colided_with)
     std::string colided_with_name = std::string(typeid(*colided_with).name());
     if (  colided_with_name.compare("12BulletEntity") == 0  ) {
        EnemyShip::DamageShip(colided_with->GetDamage());
+       Explosion *bang = new Explosion(Logger,XLocation,YLocation,8,8,false,true,theWorld);
+       theWorld->AddEntity(bang);
        theWorld->AddPoints(100);
     }
 }

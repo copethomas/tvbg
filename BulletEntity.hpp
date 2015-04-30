@@ -13,7 +13,7 @@ public:
     virtual bool DefaultMove();
     BulletEntity(JAMCT_Logger *in_logger,int startx,int starty,int heading_direction);
     virtual void Colision(Entity *colided_with);
-
+    void DrawCircle(float cx, float cy, float rad, int num_segments,float r,float g, float b);
 };
 
 
