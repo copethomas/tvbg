@@ -165,3 +165,14 @@ void World::AddPoints(int points)
 {
     World::Scoreboard->AddScore(points);
 }
+void World::SetGameState(GameStateType type)
+{
+    World::GameState = type;
+}
+
+int World::GetGameState()
+{
+    return World::GameState;
+}
+
+
