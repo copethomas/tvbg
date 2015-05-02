@@ -2,10 +2,10 @@
 #define WORLD_HPP_INCLUDED
 #include "JAMCT_Logger.hpp"
 #include "Entity.hpp"
-#include "Score.hpp"
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <map>
+#include "Score.hpp"
 class World {
 
 public:
@@ -39,7 +39,11 @@ private:
     std::map<Entity*, std::vector<Entity*>*> EntityColls; //A Map Containing a pointer to a Vectory of Object. Weird :)
     std::map<Entity*, std::vector<Entity*>*>::iterator EntityCollsIterator;
     Score *Scoreboard;
-    int CurrentFPS;
+    int CurrentFPS = 0;
+    int FPSCounter = 0;
+    time_t rawtime;
+    struct tm * timeinfo;
+    int FPSSeconds = 0;
 
 };
 

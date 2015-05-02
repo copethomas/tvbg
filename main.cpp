@@ -6,6 +6,7 @@
 #include "PlayerShip.hpp"
 #include "EnemyShip.hpp"
 #include "Text.hpp"
+#include "TextStats.hpp"
 
 void Fatal_Error(std::string message,JAMCT_Logger *logger) {
     logger->Log(JAMCT_Logger::CRIT,"Main","--->Fatal Application Error<---");
@@ -58,9 +59,11 @@ int main() {
     //***Title Text***
     Text *title = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Start");
     Text *youDied = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Respawn");
+    TextStats *stats = new TextStats(logger,widthMM - 90,heightMM - 20,15,world);
     youDied->SetHidden(true);
     world->AddEntity(title);
     world->AddEntity(youDied);
+    world->AddEntity(stats);
     while (!glfwWindowShouldClose(window)) {
         //**********StartGame************
         if (world->GetGameState() == World::START) {
@@ -98,6 +101,7 @@ int main() {
         thePlayer->KeyCoolDown();
         world->Render();
         world->RunCollisionDetection();
+        world->ProcessFPS();
     }
     delete world;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Closes. Application going down...");

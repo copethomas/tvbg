@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include <random>
+#include <ctime>
 
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
@@ -220,3 +221,27 @@ int World::GetScreenWidth()
 {
     return WIDTH;
 }
+
+int World::GetEntitys()
+{
+    return WorldItems.size();
+}
+
+int World::GetFPS()
+{
+    return CurrentFPS;
+}
+
+void World::ProcessFPS()
+{
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    if (FPSSeconds != timeinfo->tm_sec) {
+        FPSSeconds = timeinfo->tm_sec;
+        CurrentFPS = FPSCounter;
+        FPSCounter = 0;
+    }else{
+        FPSCounter++;
+    }
+}
+

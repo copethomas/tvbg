@@ -4,7 +4,7 @@
 #include <string>
 class Text: public Entity{
 
-    private:
+    protected:
         std::string DisplayText;
         int Size;
         bool Hidden = false;
