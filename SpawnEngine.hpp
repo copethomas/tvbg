@@ -6,7 +6,7 @@
 class SpawnEngine {
 
 private:
-    int Level;
+    int Level = 1;
     bool KeepGoing = true;;
     bool Pause = true;
     std::thread Spawn;
@@ -14,6 +14,8 @@ private:
     void SpawnThread();
     JAMCT_Logger *Logger;
     PlayerShip *thePlayer;
+    const int SCORE_PER_LEVEL = 200;
+    int SpawnDelay = 2000;
 
 public:
     SpawnEngine(JAMCT_Logger *in_Logger, World *gameWorld,PlayerShip *in_thePlayer);

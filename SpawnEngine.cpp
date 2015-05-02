@@ -40,9 +40,26 @@ void SpawnEngine::SpawnThread()
             std::chrono::milliseconds dura(1000);
             std::this_thread::sleep_for( dura );
         }
-        std::chrono::milliseconds dura(100);
+        //Update Level with the Score.
+        if ( theWorld->GetScore() > (Level * SCORE_PER_LEVEL)  ) {
+            SpawnEngine::Level++;
+            SpawnEngine::SpawnDelay -= 10;
+            Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Reached Level " + std::to_string(Level) + " Spawn Delay = " + std::to_string(SpawnDelay));
+        }
+        //Delay
+        std::chrono::milliseconds dura(SpawnDelay);
         std::this_thread::sleep_for( dura );
-        EnemyShip *test = new EnemyShip(Logger,10,10,10,theWorld,thePlayer);
-        theWorld->AddEntity(test);
+        EnemyShip *pinkguy = new EnemyShip(Logger,10,10,10,theWorld,thePlayer);
+        switch (SpawnEngine::Level) {
+            case 1:
+                theWorld->AddEntity(pinkguy);
+                break;
+            case 2:
+                theWorld->AddEntity(pinkguy);
+                break;
+            case 3:
+                theWorld->AddEntity(pinkguy);
+                break;
+        }
     }
 }
