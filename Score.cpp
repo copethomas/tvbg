@@ -29,3 +29,9 @@ int Score::GetScore()
 Score::Score(JAMCT_Logger* in_logger, int startx, int starty): Entity(in_logger,startx,starty){
     //Nothing todo
 }
+
+void Score::SetScore(int newScore)
+{
+    Score::GameScore = newScore;
+}
+

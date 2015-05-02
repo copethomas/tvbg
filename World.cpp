@@ -47,6 +47,7 @@ void World::Respawn()
              renderEntity->SetDead(true);
         }
     }
+    World::Scoreboard->SetScore(0);
     Logger->Log(JAMCT_Logger::INFO,"World","Marked " + std::to_string(i) + " Entitys for death.");
     Logger->Log(JAMCT_Logger::INFO,"World","Respawn Complete. Updated will be processed on next render.");
 }

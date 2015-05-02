@@ -10,6 +10,7 @@ public:
     bool Draw();
     void AddScore(int points);
     int GetScore();
+    void SetScore(int newScore);
     Score(JAMCT_Logger *in_logger,int startx,int starty);
 };
 

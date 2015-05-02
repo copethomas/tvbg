@@ -3,7 +3,7 @@
 
 bool TextStats::Draw()
 {
-    TextStats::DisplayText = "E:" + std::to_string(TextStats::gameWorld->GetGameState()) + " - FPS:" + std::to_string(TextStats::gameWorld->GetFPS());
+    TextStats::DisplayText = "E:" + std::to_string(TextStats::gameWorld->GetEntitys()) + " - FPS:" + std::to_string(TextStats::gameWorld->GetFPS());
     FTGLPixmapFont font("/usr/share/fonts/gnu-free/FreeSerif.ttf");
     FTPoint location(TextStats::XLocation,TextStats::YLocation);
     if(font.Error()){
