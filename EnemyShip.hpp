@@ -10,6 +10,10 @@ private:
     int AIActiveYLoc = 0;
     int GetTrackingDirection();
     int GetEntranceDirection();
+    enum MOVEMENT_TYPES {UP,DOWN,LEFT,RIGHT,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT};
+    int BestMethod = 0;
+    int BestXImprov = 0;
+    int BestYImprov = 0;
 
 public:
     virtual bool Draw();

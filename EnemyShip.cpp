@@ -16,17 +16,89 @@ bool EnemyShip::Draw()
     return true;
 }
 
+bool ClosedGap(int point_old, int point_new, int point_ref) {
+    if (point_ref < point_old){
+        if ((point_old - point_ref)>(point_new-point_ref)){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        if ((point_ref-point_old)>(point_ref-point_new)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    return false;
+}
+
+int GapAmmount(int point_old, int point_new, int point_ref) {
+    if (point_ref < point_old){
+        return (point_old - point_new);
+    }else{
+        return (point_new - point_old);
+    }
+}
 
 int EnemyShip::GetTrackingDirection() {
     //Re-Write AI. - Needs to Retun the Direction We need togo. Up|Down|Left|Right
-    //What ever Directoion is Greatest Away from the Player go That Way.
-
-
     //Try each Method
     //If the Method is going away from the player skip it.
     //Work out How Many Steps that method takes untill the X or Y is met. If the Answer is 0 then skip it becuase your on the same X or Y
     //If the method is taking longer than the shortest so far skip it.
     //Work out the Smallest steps out of the methoids and use that one.
+    int ThearyX, ThearyY, Before_ThearyX, Before_ThearyY, CurrentMethod;
+    for (int i=0;i<8;i++) {
+        CurrentMethod = i;
+        ThearyX = XLocation;
+        Before_ThearyX = XLocation;
+        ThearyY = YLocation;
+        Before_ThearyY = YLocation;
+        do{ //Run through each method untill they stop being usefull
+            switch (i) {
+            case UP:
+                ThearyY++;
+            break;
+            case DOWN:
+                ThearyY--;
+            break;
+            case LEFT:
+                ThearyX--;
+            break;
+            case RIGHT:
+                ThearyX++;
+            break;
+            case UP_LEFT:
+                ThearyY++;
+                ThearyX--;
+            break;
+            case UP_RIGHT:
+                ThearyY++;
+                ThearyX++;
+            break;
+            case DOWN_LEFT:
+                ThearyY--;
+                ThearyX--;
+            break;
+            case DOWN_RIGHT:
+                ThearyY--;
+                ThearyX++;
+            break;
+            }
+        }while (((ClosedGap(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation())==true)||(ClosedGap(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation())==true)));
+        //Right That method has stoped being usefull.
+        //How did it do?
+        int XImprove,YImprove;
+        XImprove = GapAmmount(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation());
+        YImprove = GapAmmount(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation());
+        if ((XImprove >! 0) && (YImprove >! 0)) {continue;} //No Improvemnt! Skip it!!!
+        //Right so We made some progress. Yay!
+        if ( (XImprove >= BestXImprov) || (YImprove >= BestYImprov)) {
+            BestMethod = CurrentMethod;
+        }
+    }
+    return (BestMethod * 45);
 }
 
 
