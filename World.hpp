@@ -24,6 +24,9 @@ public:
     int GetScreenHeight();
     int GetScreenWidth();
     void Respawn();
+    int GetEntitys();
+    int GetFPS();
+    void ProcessFPS();
 
 private:
     GameStateType GameState = START;
@@ -36,6 +39,7 @@ private:
     std::map<Entity*, std::vector<Entity*>*> EntityColls; //A Map Containing a pointer to a Vectory of Object. Weird :)
     std::map<Entity*, std::vector<Entity*>*>::iterator EntityCollsIterator;
     Score *Scoreboard;
+    int CurrentFPS;
 
 };
 

@@ -1,6 +1,6 @@
-1. A Game States, Start running and game over. And you can restart the game
+1. A Game States, Start running and game over. And you can restart the game (DONE)
 2. Add FPS and Entity Counter
-3. Stop Ship for going of screen
+3. Stop Ship for going of screen (DONE)
 4. Add other EnemyShips
 5. Add Spawing Machanic
 6. Add Levels which increase spawing with the score

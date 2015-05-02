@@ -97,7 +97,7 @@ void PlayerShip::WKey(bool keyState)
 {
     if (keyState)
     {
-        YLocation+=Speed;
+        if (!IsOffScreenW()) {YLocation+=Speed;}
         if (Keys[Key_Name::A] == false & Keys[Key_Name::D] == false)
         {
             Direction = 0;
@@ -114,7 +114,7 @@ void PlayerShip::AKey(bool keyState)
 {
     if (keyState)
     {
-        XLocation-=Speed;
+         if (!IsOffScreenA()) {XLocation-=Speed;}
         Direction = 270;
         if (Keys[Key_Name::W] == true)
         {
@@ -136,7 +136,7 @@ void PlayerShip::SKey(bool keyState)
 {
     if (keyState)
     {
-        YLocation-=Speed;
+        if (!IsOffScreenS()) {YLocation-=Speed;}
         if (Keys[Key_Name::A] == false & Keys[Key_Name::D] == false)
         {
             Direction = 180;
@@ -153,7 +153,7 @@ void PlayerShip::DKey(bool keyState)
 {
     if (keyState)
     {
-        XLocation+=Speed;
+         if (!IsOffScreenD()) {XLocation+=Speed;}
         Direction = 90;
         if (Keys[Key_Name::W] == true)
         {
@@ -194,5 +194,47 @@ void PlayerShip::Respawn()
     PlayerShip::YLocation = theWorld->GetScreenHeight()/2;
     PlayerShip::Hidden = false;
 }
+
+bool PlayerShip::IsOffScreenW() {
+    int BOARDER = (Speed + 10);
+
+    if (YLocation > (theWorld->GetScreenHeight() - BOARDER) ) {
+        return true;
+    }else{
+        return false;
+    }
+
+}
+bool PlayerShip::IsOffScreenA()
+{
+    int BOARDER = (Speed + 10);
+    if (XLocation < (BOARDER)) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool PlayerShip::IsOffScreenS()
+{
+    int BOARDER = (Speed + 10);
+    if (YLocation < (BOARDER)) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool PlayerShip::IsOffScreenD()
+{
+    int BOARDER = (Speed + 10);
+    if (XLocation > (theWorld->GetScreenWidth() - BOARDER) ) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 
 

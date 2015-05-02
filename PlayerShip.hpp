@@ -7,6 +7,10 @@ private:
     bool Keys[4] = {false,false,false,false};
     enum Key_Name {W,A,S,D};
     bool Hidden = false;
+    bool IsOffScreenW();
+    bool IsOffScreenA();
+    bool IsOffScreenS();
+    bool IsOffScreenD();
 
 public:
     virtual bool Draw();
