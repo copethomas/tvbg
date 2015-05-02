@@ -177,8 +177,8 @@ void PlayerShip::DamageShip(int hitDamage)
     if (Health <= 0 ) {
         if (!(PlayerShip::Hidden)) {
             theWorld->SetGameState(World::GAMEOVER);
-            for (int i=0; i<theWorld->RandomNumber(10,1);i++) {
-                Explosion *playerdead = new Explosion(Logger,XLocation,YLocation,theWorld->RandomNumber(8,1),100000,false,false,theWorld,theWorld->RandomNumber(10,1));
+            for (int i=0; i<theWorld->RandomNumber(15,10);i++) {
+                Explosion *playerdead = new Explosion(Logger,XLocation,YLocation,theWorld->RandomNumber(12,5),100000,false,false,theWorld,theWorld->RandomNumber(10,1));
                 theWorld->AddEntity(playerdead);
             }
         }
