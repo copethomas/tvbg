@@ -4,9 +4,9 @@
 #include "JAMCT_Logger.hpp"
 #include "World.hpp"
 #include "PlayerShip.hpp"
-#include "EnemyShip.hpp"
 #include "Text.hpp"
 #include "TextStats.hpp"
+#include "SpawnEngine.hpp"
 
 void Fatal_Error(std::string message,JAMCT_Logger *logger) {
     logger->Log(JAMCT_Logger::CRIT,"Main","--->Fatal Application Error<---");
@@ -47,6 +47,8 @@ int main() {
     World *world = new World(logger,window,heightMM,widthMM);
     PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
     world->AddEntity(thePlayer);
+    SpawnEngine *spawner = new SpawnEngine(logger,world,thePlayer);
+    spawner->SetPause(true);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);
@@ -70,6 +72,7 @@ int main() {
             if (glfwGetKey(window,GLFW_KEY_ENTER)){
                 title->SetHidden(true);
                 world->SetGameState(World::RUNNING);
+                spawner->SetPause(false);
             }
         }
         //**********End START GAME*******
@@ -92,10 +95,12 @@ int main() {
         //************START GAMEOVER***********
         if (world->GetGameState() == World::GAMEOVER) {
                 youDied->SetHidden(false);
+                spawner->SetPause(true);
                 if (glfwGetKey(window,GLFW_KEY_ENTER)){
                     world->SetGameState(World::RUNNING);
                     youDied->SetHidden(true);
                     world->Respawn();
+                    spawner->SetPause(false);
                 }
         }
         thePlayer->KeyCoolDown();
@@ -103,7 +108,9 @@ int main() {
         world->RunCollisionDetection();
         world->ProcessFPS();
     }
-    delete world;
+    spawner->Shutdown();
+    delete spawner;
+    delete world; //World Shutdown is part of the deconstructor.
     logger->Log(JAMCT_Logger::INFO,"Main","Window Closes. Application going down...");
     glfwDestroyWindow(window);
     glfwTerminate();

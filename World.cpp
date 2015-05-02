@@ -1,13 +1,10 @@
 #include "World.hpp"
-#include "MovableEntity.hpp"
 #include "Score.hpp"
 #include "PlayerShip.hpp"
 #include "Text.hpp"
-#include <algorithm>
 #include <assert.h>
 #include <vector>
 #include <map>
-#include <random>
 #include <ctime>
 
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
@@ -54,13 +51,13 @@ void World::Respawn()
 
 
 void World::Render() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     if (WorldItems.size() == 0) {
         Logger->Log(JAMCT_Logger::EMER,"World","No Extities to Render!");
         assert(WorldItems.size() != 0);
     }
-
+    World::SpawnLocked.lock(); //Using a Mutex to Stop the Spawn thread from adding objects while I'm Processing them.
     auto WorldItemsIterator = WorldItems.begin();
     while(WorldItemsIterator != WorldItems.end()) {
     int index = std::distance(WorldItems.begin(), WorldItemsIterator);
@@ -82,6 +79,7 @@ void World::Render() {
             ++WorldItemsIterator;
         }
     }
+    World::SpawnLocked.unlock(); //OK,I'm out of my processing code. You can have the locked back.
     glFlush();
     glFinish();
     glfwSwapInterval(1);
@@ -91,7 +89,9 @@ void World::Render() {
 
 void World::AddEntity(Entity *newEntity) {
    // Logger->Log(JAMCT_Logger::INFO,"World","Adding new Entity..");
+    World::SpawnLocked.lock(); //Hold Up While I add a new entity.
     World::WorldItems.push_back(newEntity);
+    World::SpawnLocked.unlock(); //New Entity Added You can process now.
 }
 
 bool World::EqualsBoundCheck(int loc, int target,int bound)

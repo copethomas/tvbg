@@ -1,10 +1,11 @@
 #ifndef WORLD_HPP_INCLUDED
 #define WORLD_HPP_INCLUDED
-#include "JAMCT_Logger.hpp"
-#include "Entity.hpp"
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <map>
+#include <mutex>
+#include "JAMCT_Logger.hpp"
+#include "Entity.hpp"
 #include "Score.hpp"
 class World {
 
@@ -44,6 +45,7 @@ private:
     time_t rawtime;
     struct tm * timeinfo;
     int FPSSeconds = 0;
+    std::mutex SpawnLocked;
 
 };
 
