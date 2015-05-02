@@ -5,6 +5,11 @@ class EnemyShip: public Ship {
 
 private:
     PlayerShip *trackingPlayer;
+    bool AIActive = false;
+    int AIActiveXLoc = 0;
+    int AIActiveYLoc = 0;
+    int GetTrackingDirection();
+    int GetEntranceDirection();
 
 public:
     virtual bool Draw();

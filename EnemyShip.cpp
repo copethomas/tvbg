@@ -16,23 +16,47 @@ bool EnemyShip::Draw()
     return true;
 }
 
+
+int EnemyShip::GetTrackingDirection() {
+    //Re-Write AI. - Needs to Retun the Direction We need togo. Up|Down|Left|Right
+    //What ever Directoion is Greatest Away from the Player go That Way.
+
+
+    //Try each Method
+    //If the Method is going away from the player skip it.
+    //Work out How Many Steps that method takes untill the X or Y is met. If the Answer is 0 then skip it becuase your on the same X or Y
+    //If the method is taking longer than the shortest so far skip it.
+    //Work out the Smallest steps out of the methoids and use that one.
+}
+
+
+int EnemyShip::GetEntranceDirection()
+{
+    if (XLocation == -40) { //If on the left
+        return 90;//Go Right
+    }
+    if (XLocation == (theWorld->GetScreenWidth()+40)) { //If on the Right
+        return 270;//Go Left
+    }
+    if (YLocation == -40) { //If on the Bottom
+        return 0;//Go Up
+    }
+    if (YLocation == (theWorld->GetScreenHeight()+40)) { //If on the Top
+        return 180;//Go Down
+    }
+}
+
+
 bool EnemyShip::DefaultMove(){
-    //Set Direction to the Player (Very Simple AI)
-    if (theWorld->EqualsBoundCheck(trackingPlayer->GetYLocation(),YLocation,6)) {
-        if (trackingPlayer->GetXLocation() > XLocation) {
-            Direction = 90;
-        }else{
-            Direction = 270;
+    //Have we moved in further enough to Activate the AI?
+    if (!AIActive) {
+        if ((theWorld->EqualsBoundCheck(XLocation,AIActiveXLoc,50)) || (theWorld->EqualsBoundCheck(YLocation,AIActiveYLoc,50))) {
+            AIActive = true;
         }
     }
-    if (theWorld->EqualsBoundCheck(trackingPlayer->GetXLocation(),XLocation,6)) {
-        if (trackingPlayer->GetYLocation() > YLocation) {
-            Direction = 0;
-        }else{
-            Direction = 180;
-        }
+    if (AIActive) {
+        Direction = GetTrackingDirection();
     }
-    //Move to the Player
    MoveUp();
 }
 
@@ -65,4 +89,8 @@ EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_hea
     Width = 30;
     Health = 1;
     Damage = 100;
+    EnemyShip::Direction = GetEntranceDirection();
+    EnemyShip::AIActiveYLoc = theWorld->RandomNumber(theWorld->GetScreenHeight(),100);
+    EnemyShip::AIActiveXLoc = theWorld->RandomNumber(theWorld->GetScreenWidth(),100);
+
 }

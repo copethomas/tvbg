@@ -65,7 +65,7 @@ void World::Render() {
       if (!renderEntity->Draw()) {
           Logger->Log(JAMCT_Logger::INFO,"World","Rendering Error Detected!");
         }
-        if ((renderEntity->GetXLocation() < 0) | (renderEntity->GetYLocation() < 0) | (renderEntity->GetYLocation() > HEIGHT) | (renderEntity->GetXLocation() > WIDTH) ) {
+        if ((renderEntity->GetXLocation() < -50) | (renderEntity->GetYLocation() < -50) | (renderEntity->GetYLocation() > (HEIGHT + 50)) | (renderEntity->GetXLocation() > (WIDTH + 50)) ) {
            // Logger->Log(JAMCT_Logger::AERT,"World","Dead Entity Loc: X=" + std::to_string(renderEntity->GetXLocation()) + " Y=" + std::to_string(renderEntity->GetYLocation()) + " WIDTH=" + std::to_string(WIDTH) + " HEIGHT=" + std::to_string(HEIGHT));
             renderEntity->SetDead(true);
         }

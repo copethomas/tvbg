@@ -3,4 +3,13 @@
 3. Stop Ship for going of screen (DONE)
 4. Add other EnemyShips
 5. Add Spawing Machanic (DONE)
-6. Add Levels which increase spawing with the score
+6. Add Levels which increase spawing with the score (DONE)
+7. Fix Spawning so it spawns at the sides and moves into the screen.
+
+
+pink guy = done
+fighter = done
+bomber = explodes after time
+traper = lays down trapes whic explode after some time no ai just moves forward.
+tank = takes lots of hits and changes colour
+splitter = splis into small versions of its self (does this  times)
