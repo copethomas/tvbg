@@ -5,6 +5,9 @@
 #include "Explosion.hpp"
 bool PlayerShip::Draw()
 {
+    if (PlayerShip::Hidden) {
+        return true;
+    }
     //Draw Player Ship. (Triangle)
     glBegin(GL_TRIANGLES);
     glColor3f(0.0f,0.0f,1.0f); //Blue Player
@@ -81,8 +84,6 @@ void PlayerShip::DebugKey(bool keyState)
         KeyPress = CoolDown;
     }
 }
-
-
 
 PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world): Ship(in_logger,startx,starty,in_health,home_world)
 {
@@ -167,6 +168,21 @@ void PlayerShip::DKey(bool keyState)
     else
     {
         Keys[Key_Name::D] = false;
+    }
+}
+
+void PlayerShip::DamageShip(int hitDamage)
+{
+    PlayerShip::Health =- hitDamage;
+    if (Health <= 0 ) {
+        if (!(PlayerShip::Hidden)) {
+            theWorld->SetGameState(World::GAMEOVER);
+            for (int i=0; i<theWorld->RandomNumber(10,1);i++) {
+                Explosion *playerdead = new Explosion(Logger,XLocation,YLocation,theWorld->RandomNumber(8,1),100000,false,false,theWorld,theWorld->RandomNumber(10,1));
+                theWorld->AddEntity(playerdead);
+            }
+        }
+        PlayerShip::Hidden = true;
     }
 }
 

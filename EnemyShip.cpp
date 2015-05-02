@@ -49,9 +49,12 @@ void EnemyShip::Colision(Entity* colided_with)
        theWorld->AddEntity(bang);
        theWorld->AddPoints(100);
     }
+
+    if( PlayerShip* good_guy = dynamic_cast< PlayerShip* >( colided_with )) {
+            good_guy->DamageShip(this->GetDamage());
+    }
+
 }
-
-
 
 EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world, PlayerShip *thePlayer): Ship(in_logger,startx,starty,in_health,home_world)
 {

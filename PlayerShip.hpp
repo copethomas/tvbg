@@ -6,6 +6,7 @@ class PlayerShip: public Ship {
 private:
     bool Keys[4] = {false,false,false,false};
     enum Key_Name {W,A,S,D};
+    bool Hidden = false;
 
 public:
     virtual bool Draw();
@@ -17,7 +18,7 @@ public:
     void SKey(bool keyState);
     void DKey(bool keyState);
     void DebugKey(bool keyState);
-
+    void DamageShip(int hitDamage);
 
 };
 #endif // PLAYERSHIP_HPP_INCLUDED

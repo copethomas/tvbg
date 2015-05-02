@@ -19,6 +19,7 @@ public:
     enum GameStateType {START,RUNNING,GAMEOVER};
     void SetGameState (GameStateType type);
     int GetGameState();
+    int RandomNumber(int hight, int low);
 
 private:
     GameStateType GameState = START;

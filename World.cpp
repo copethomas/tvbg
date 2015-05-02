@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <vector>
 #include <map>
+#include <random>
 
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
@@ -173,6 +174,11 @@ void World::SetGameState(GameStateType type)
 int World::GetGameState()
 {
     return World::GameState;
+}
+
+int World::RandomNumber(int hight, int low)
+{
+    return (rand()%(hight-low))+low;
 }
 
 

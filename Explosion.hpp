@@ -10,6 +10,7 @@ private:
 
 public:
     Explosion(JAMCT_Logger *in_logger,int startx,int starty,int partical_count,int life_span, bool hurt_good, bool hurt_bad, World *in_theWorld);
+    Explosion(JAMCT_Logger *in_logger,int startx,int starty,int partical_count,int life_span, bool hurt_good, bool hurt_bad, World *in_theWorld, int speed);
 
 };
 

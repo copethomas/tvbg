@@ -37,13 +37,17 @@ int main() {
     heightMM = mode->height;
     widthMM = mode->width;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Size = " + std::to_string(widthMM) + " X " + std::to_string(heightMM));
-    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
-    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
+    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
+    //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
     if (!window) {
         glfwTerminate();
         Fatal_Error("Could not create Window",logger);
     }
     World *world = new World(logger,window,heightMM,widthMM);
+    PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
+    EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
+    world->AddEntity(thePlayer);
+    world->AddEntity(test);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);
@@ -55,39 +59,18 @@ int main() {
     glLoadIdentity();
 
     while (!glfwWindowShouldClose(window)) {
-        while (world->GetGameState() == World::START) {
-            Text *titleScreen = new Text(logger,(widthMM - 100),heightMM/2,30,"TVBG V0.2.8.3");
-            Text *creatorText = new Text(logger,(widthMM - 200),heightMM/2,20,"Created by Thomas Cope");
-            Text *startText = new Text(logger,(widthMM - 300),heightMM/2,60,"Press <enter> to Start");
-            world->AddEntity(titleScreen);
-            world->AddEntity(creatorText);
-            world->AddEntity(startText);
-            while (glfwGetKey(window, GLFW_KEY_ENTER) != GLFW_PRESS) {
-                    world->Render();
-            }
-            world->SetGameState(World::RUNNING);
-            titleScreen->SetDead(true);
-            creatorText->SetDead(true);
-            startText->SetDead(true);
+        //Process Key Input.
+        thePlayer->WKey((glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS));
+        thePlayer->AKey((glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS));
+        thePlayer->SKey((glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS));
+        thePlayer->DKey((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS));
+        thePlayer->DebugKey((glfwGetKey(window, GLFW_KEY_APOSTROPHE) == GLFW_PRESS));
+        if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)) {
+            thePlayer->Shoot();
         }
-        PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
-        EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
-        world->AddEntity(thePlayer);
-        world->AddEntity(test);
-        while (world->GetGameState() == World::RUNNING) {
-            //Process Key Input.
-            thePlayer->WKey((glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS));
-            thePlayer->AKey((glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS));
-            thePlayer->SKey((glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS));
-            thePlayer->DKey((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS));
-            thePlayer->DebugKey((glfwGetKey(window, GLFW_KEY_APOSTROPHE) == GLFW_PRESS));
-            if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)) {
-                thePlayer->Shoot();
-            }
-            thePlayer->KeyCoolDown();
-            world->Render();
-            world->RunCollisionDetection();
-        }
+        thePlayer->KeyCoolDown();
+        world->Render();
+        world->RunCollisionDetection();
     }
     delete world;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Closes. Application going down...");
