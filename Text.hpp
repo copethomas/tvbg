@@ -7,10 +7,12 @@ class Text: public Entity{
     private:
         std::string DisplayText;
         int Size;
+        bool Hidden = false;
 
     public:
         bool Draw();
         Text(JAMCT_Logger *in_logger,int startx,int starty,int in_Size, std::string in_text);
+        void SetHidden(bool isHidden);
 
 };
 

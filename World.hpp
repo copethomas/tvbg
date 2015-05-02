@@ -20,6 +20,10 @@ public:
     void SetGameState (GameStateType type);
     int GetGameState();
     int RandomNumber(int hight, int low);
+    int GetScore();
+    int GetScreenHeight();
+    int GetScreenWidth();
+    void Respawn();
 
 private:
     GameStateType GameState = START;

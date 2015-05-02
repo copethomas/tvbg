@@ -19,6 +19,7 @@ public:
     void DKey(bool keyState);
     void DebugKey(bool keyState);
     void DamageShip(int hitDamage);
+    void Respawn();
 
 };
 #endif // PLAYERSHIP_HPP_INCLUDED

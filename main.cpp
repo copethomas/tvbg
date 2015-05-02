@@ -45,9 +45,7 @@ int main() {
     }
     World *world = new World(logger,window,heightMM,widthMM);
     PlayerShip *thePlayer = new PlayerShip(logger,(widthMM/2),(heightMM/2),10,world);
-    EnemyShip *test = new EnemyShip(logger,50,50,10,world,thePlayer);
     world->AddEntity(thePlayer);
-    world->AddEntity(test);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetKeyCallback(window, key_callback);
@@ -57,16 +55,45 @@ int main() {
     glOrtho(0.0f, widthMM, 0.0f, heightMM, 0.0f, 1.0f);
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
-
+    //***Title Text***
+    Text *title = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Start");
+    Text *youDied = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Respawn");
+    youDied->SetHidden(true);
+    world->AddEntity(title);
+    world->AddEntity(youDied);
     while (!glfwWindowShouldClose(window)) {
-        //Process Key Input.
-        thePlayer->WKey((glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS));
-        thePlayer->AKey((glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS));
-        thePlayer->SKey((glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS));
-        thePlayer->DKey((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS));
-        thePlayer->DebugKey((glfwGetKey(window, GLFW_KEY_APOSTROPHE) == GLFW_PRESS));
-        if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)) {
-            thePlayer->Shoot();
+        //**********StartGame************
+        if (world->GetGameState() == World::START) {
+            if (glfwGetKey(window,GLFW_KEY_ENTER)){
+                title->SetHidden(true);
+                world->SetGameState(World::RUNNING);
+            }
+        }
+        //**********End START GAME*******
+
+
+        //*********MAIN GAME*************
+        if (world->GetGameState() == World::RUNNING) {
+            //Process Key Input.
+            thePlayer->WKey((glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS));
+            thePlayer->AKey((glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS));
+            thePlayer->SKey((glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS));
+            thePlayer->DKey((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS));
+            thePlayer->DebugKey((glfwGetKey(window, GLFW_KEY_APOSTROPHE) == GLFW_PRESS));
+            if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)) {
+                thePlayer->Shoot();
+            }
+        }
+        //************END MAIN GAME***********
+
+        //************START GAMEOVER***********
+        if (world->GetGameState() == World::GAMEOVER) {
+                youDied->SetHidden(false);
+                if (glfwGetKey(window,GLFW_KEY_ENTER)){
+                    world->SetGameState(World::RUNNING);
+                    youDied->SetHidden(true);
+                    world->Respawn();
+                }
         }
         thePlayer->KeyCoolDown();
         world->Render();

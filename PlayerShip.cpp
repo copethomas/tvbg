@@ -177,6 +177,7 @@ void PlayerShip::DamageShip(int hitDamage)
     if (Health <= 0 ) {
         if (!(PlayerShip::Hidden)) {
             theWorld->SetGameState(World::GAMEOVER);
+            Logger->Log(JAMCT_Logger::AERT,"Player","Player Died. Final Score: " + std::to_string(theWorld->GetScore()));
             for (int i=0; i<theWorld->RandomNumber(15,10);i++) {
                 Explosion *playerdead = new Explosion(Logger,XLocation,YLocation,theWorld->RandomNumber(12,5),100000,false,false,theWorld,theWorld->RandomNumber(10,1));
                 theWorld->AddEntity(playerdead);
@@ -186,5 +187,12 @@ void PlayerShip::DamageShip(int hitDamage)
     }
 }
 
+void PlayerShip::Respawn()
+{
+    PlayerShip::Health = 10;
+    PlayerShip::XLocation = theWorld->GetScreenWidth()/2;
+    PlayerShip::YLocation = theWorld->GetScreenHeight()/2;
+    PlayerShip::Hidden = false;
+}
 
 

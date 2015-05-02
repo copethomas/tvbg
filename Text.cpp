@@ -3,6 +3,9 @@
 
 bool Text::Draw()
 {
+    if (Hidden) {
+        return true;
+    }
     FTGLPixmapFont font("/usr/share/fonts/gnu-free/FreeSerif.ttf");
     FTPoint location(Text::XLocation,Text::YLocation);
     if(font.Error()){
@@ -18,3 +21,9 @@ Text::Text(JAMCT_Logger* in_logger, int startx, int starty, int in_Size, std::st
     Text::Size = in_Size;
     Text::DisplayText = in_text;
 }
+
+void Text::SetHidden(bool isHidden)
+{
+    Text::Hidden = isHidden;
+}
+

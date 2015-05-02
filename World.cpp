@@ -1,6 +1,8 @@
 #include "World.hpp"
 #include "MovableEntity.hpp"
 #include "Score.hpp"
+#include "PlayerShip.hpp"
+#include "Text.hpp"
 #include <algorithm>
 #include <assert.h>
 #include <vector>
@@ -25,6 +27,29 @@ World::~World() {
     }
     Logger->Log(JAMCT_Logger::INFO,"World","Cleared " + std::to_string(i) + " Entitys");
 }
+
+void World::Respawn()
+{
+    Logger->Log(JAMCT_Logger::INFO,"World","Respawn Triggered. Cleaning World...");
+    int i = 0;
+    for (Entity* renderEntity : World::WorldItems) {
+        if (Text* screenText = dynamic_cast< Text* >(renderEntity)) {
+            continue;
+        }
+        if (Score* gamescore = dynamic_cast< Score* >(renderEntity)) {
+            continue;
+        }
+        if (PlayerShip* theplayer = dynamic_cast< PlayerShip* >(renderEntity)) {
+            theplayer->Respawn();
+        }else{
+             i++;
+             renderEntity->SetDead(true);
+        }
+    }
+    Logger->Log(JAMCT_Logger::INFO,"World","Marked " + std::to_string(i) + " Entitys for death.");
+    Logger->Log(JAMCT_Logger::INFO,"World","Respawn Complete. Updated will be processed on next render.");
+}
+
 
 void World::Render() {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -181,4 +206,17 @@ int World::RandomNumber(int hight, int low)
     return (rand()%(hight-low))+low;
 }
 
+int World::GetScore()
+{
+    return Scoreboard->GetScore();
+}
 
+int World::GetScreenHeight()
+{
+    return HEIGHT;
+}
+
+int World::GetScreenWidth()
+{
+    return WIDTH;
+}
