@@ -33,6 +33,7 @@ bool ClosedGap(int point_old, int point_new, int point_ref) {
     return false;
 }
 
+//Mathmatical Consulktent - Tom 'Skinny' Christfer.
 int GapAmmount(int point_old, int point_new, int point_ref) {
     if ((point_old > point_ref) && (point_new > point_ref)) {
         return (point_old - point_new);
@@ -98,6 +99,8 @@ int EnemyShip::GetTrackingDirection() {
         if ((XImprove > 0) || (YImprove > 0)) {
         //Right so We made some progress. Yay!
         if ( (XImprove > BestXImprov) || (YImprove > BestYImprov)) {
+            BestXImprov = XImprove;
+            BestYImprov = YImprove;
             BestMethod = CurrentMethod;
             improved = true;
         }else{
@@ -108,7 +111,7 @@ int EnemyShip::GetTrackingDirection() {
         }
             }while (improved);//check goes here
     }
-    return (BestMethod * 45);
+    return (MOVEMENT_TYPES_DIR[BestMethod]);
 }
 
 
