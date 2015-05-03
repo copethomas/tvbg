@@ -44,7 +44,7 @@ void SpawnEngine::SpawnThread()
         //Update Level with the Score.
         if ( theWorld->GetScore() > ((Level * SCORE_PER_LEVEL) + (Level * SCORE_PER_LEVEL))) {
             SpawnEngine::Level++;
-            if (SpawnDelay > 20) {
+            if (SpawnDelay < 20) {
                 SpawnEngine::SpawnDelay -= 10;
                 Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Spawn Delay Maxed out! Will not go lower than: " + std::to_string(SpawnDelay));
             }
@@ -60,21 +60,21 @@ void SpawnEngine::SpawnThread()
         switch(theWorld->RandomNumber(4,1)) {
             case 1://Left
                 SpawnX = -40;
-                SpawnY = theWorld->RandomNumber(theWorld->GetScreenHeight(),50);
+                SpawnY = theWorld->RandomNumber(theWorld->GetScreenHeight(),20);
             break;
 
             case 2://Right
                 SpawnX = theWorld->GetScreenWidth() + 40;
-                SpawnY = theWorld->RandomNumber(theWorld->GetScreenHeight(),50);
+                SpawnY = theWorld->RandomNumber(theWorld->GetScreenHeight(),20);
             break;
 
             case 3://Top
-                SpawnX = theWorld->RandomNumber(theWorld->GetScreenWidth(),50);
+                SpawnX = theWorld->RandomNumber(theWorld->GetScreenWidth(),20);
                 SpawnY = theWorld->GetScreenHeight() + 40;
             break;
 
             case 4://Bottom
-                SpawnX = theWorld->RandomNumber(theWorld->GetScreenWidth(),50);
+                SpawnX = theWorld->RandomNumber(theWorld->GetScreenWidth(),20);
                 SpawnY = -40;
             break;
         }

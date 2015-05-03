@@ -10,7 +10,9 @@ bool JAMCT_Logger::Log(JAMCT_Logger::SeverityLevels messageLevel, std::string ap
     tmpLogMessage = getDateTime() + " : [" + SeverityLevelsStrings[messageLevel] + "]" + " : [" + applicationSection + "] - " + message + "\n";
     try
     {
+        LogLock.lock();
         JAMCT_Logger::logMessages.push_back(tmpLogMessage);
+        LogLock.unlock();
         return true;
     }
     catch(std::bad_alloc& errorMessage)
@@ -40,7 +42,9 @@ std::string JAMCT_Logger::getDateTime()
         if (JAMCT_Logger::logMessages.size() != 0) {
           std::string toBeWritten = JAMCT_Logger::logMessages.front();
             std::cout << toBeWritten;
+            LogLock.lock();
             JAMCT_Logger::logMessages.erase(JAMCT_Logger::logMessages.begin());
+            LogLock.unlock();
         }
     }
 }

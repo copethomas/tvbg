@@ -2,6 +2,7 @@
 #define TEXT_HPP_INCLUDED
 #include "Entity.hpp"
 #include <string>
+#include <FTGL/ftgl.h>
 class Text: public Entity{
 
     protected:

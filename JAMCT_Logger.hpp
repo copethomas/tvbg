@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <mutex>
 
 class JAMCT_Logger {
 
@@ -14,6 +15,7 @@ private:
     std::string getDateTime();
     std::thread flushThread;
     void loggingThread();
+    std::mutex LogLock;
 
 public:
     JAMCT_Logger(int flushInterval);

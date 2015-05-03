@@ -1,10 +1,10 @@
-1. A Game States, Start running and game over. And you can restart the game (DONE)
-2. Add FPS and Entity Counter (DONE)
-3. Stop Ship for going of screen (DONE)
-4. Add other EnemyShips
-5. Add Spawing Machanic (DONE)
-6. Add Levels which increase spawing with the score (DONE)
-7. Fix Spawning so it spawns at the sides and moves into the screen. (DONE)
+1. Add other EnemyShips
+2. Fix Text Render? Memory Errors? Not Beling deleted?
+3. Anounch Levels and Shutdown
+4. Fix Triangle Col Detection.
+5. Fix the AI Hitting the Magic Area.
+6. Spawing on the Edges (top)
+7. Fix Spawn Rates.
 
 
 pink guy = done
