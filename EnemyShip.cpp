@@ -63,7 +63,7 @@ int EnemyShip::GetAIY()
 int EnemyShip::GetTrackingDirection()
 {
     //IF X is more important
-    if (XLocation == trackingPlayer->GetXLocation())
+    if (theWorld->EqualsBoundCheck(XLocation,trackingPlayer->GetXLocation(),(Speed/2)))
     {
         //XLocation is Matched need to find Y
         return GetAIY();
@@ -73,7 +73,7 @@ int EnemyShip::GetTrackingDirection()
         return GetAIX();
     }
     //IF Y is more Important
-    if (YLocation == trackingPlayer->GetYLocation())
+    if (theWorld->EqualsBoundCheck(YLocation,trackingPlayer->GetYLocation(),(Speed/2)))
     {
         //YLocation Is Matchd need to findX
         return GetAIX();

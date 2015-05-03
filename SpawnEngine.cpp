@@ -42,15 +42,19 @@ void SpawnEngine::SpawnThread()
             std::this_thread::sleep_for( dura );
         }
         //Update Level with the Score.
-        if ( theWorld->GetScore() > (Level * SCORE_PER_LEVEL)  ) {
+        if ( theWorld->GetScore() > ((Level * SCORE_PER_LEVEL) + (Level * SCORE_PER_LEVEL))) {
             SpawnEngine::Level++;
-            SpawnEngine::SpawnDelay -= 10;
+            if (SpawnDelay > 20) {
+                SpawnEngine::SpawnDelay -= 10;
+                Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Spawn Delay Maxed out! Will not go lower than: " + std::to_string(SpawnDelay));
+            }
             Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Reached Level " + std::to_string(Level) + " Spawn Delay = " + std::to_string(SpawnDelay));
         }
         //Delay
         std::chrono::milliseconds dura(SpawnDelay);
         std::this_thread::sleep_for( dura );
         //SpawnSide
+        for (int i=1; i<(Level + 3);i++) {
         int SpawnX = 0;
         int SpawnY = 0;
         switch(theWorld->RandomNumber(4,1)) {
@@ -74,18 +78,20 @@ void SpawnEngine::SpawnThread()
                 SpawnY = -40;
             break;
         }
-        EnemyShip *pinkguy = new EnemyShip(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
-       // EnemyFighter *test = new EnemyFighter(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
-        switch (SpawnEngine::Level) {
-            case 1:
-                theWorld->AddEntity(pinkguy);
-                break;
-            case 2:
-                theWorld->AddEntity(pinkguy);
-                break;
-            case 3:
-                theWorld->AddEntity(pinkguy);
-                break;
+        if (Level > 0) {
+            EnemyShip *pinkguy = new EnemyShip(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
+            theWorld->AddEntity(pinkguy);
         }
+        if (Level > 3) {
+            EnemyFighter *fighter = new EnemyFighter(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
+            theWorld->AddEntity(fighter);
+        }
+       }
     }
 }
+
+void SpawnEngine::SetLevel(int newlevel)
+{
+    SpawnEngine::Level = newlevel;
+}
+

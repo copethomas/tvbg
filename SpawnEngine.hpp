@@ -21,6 +21,7 @@ public:
     SpawnEngine(JAMCT_Logger *in_Logger, World *gameWorld,PlayerShip *in_thePlayer);
     void Shutdown();
     void SetPause(bool is_pause);
+    void SetLevel(int newlevel);
 
 };
 #endif // SPAWNENGINE_HPP_INCLUDED

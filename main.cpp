@@ -101,6 +101,7 @@ int main() {
                     youDied->SetHidden(true);
                     world->Respawn();
                     spawner->SetPause(false);
+                    spawner->SetLevel(1);
                 }
         }
         thePlayer->KeyCoolDown();

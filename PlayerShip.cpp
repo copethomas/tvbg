@@ -77,18 +77,18 @@ void PlayerShip::DebugKey(bool keyState)
 {
     if (KeyPress == 0 && (keyState == true))
     {
-        EnemyShip *test = new EnemyShip(Logger,600,600,1,theWorld,this);
+        //EnemyShip *test = new EnemyShip(Logger,600,600,1,theWorld,this);
         //ExplosionPartical *test = new ExplosionPartical(Logger,50,50,0,100,false,false);
         //Explosion *test = new Explosion(Logger,50,50,8,10,false,false,theWorld);
-        theWorld->AddEntity(test);
-        KeyPress = CoolDown;
+        //theWorld->AddEntity(test);
+        //KeyPress = CoolDown;
     }
 }
 
 PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world): Ship(in_logger,startx,starty,in_health,home_world)
 {
     Direction = 0; //Pointing Forwards.
-    Speed = 4; //Sort of Fast Ship
+    Speed = 6; //Sort of Fast Ship
     Height = 30;
     Width = 30;
 }

@@ -4,7 +4,7 @@
 4. Add other EnemyShips
 5. Add Spawing Machanic (DONE)
 6. Add Levels which increase spawing with the score (DONE)
-7. Fix Spawning so it spawns at the sides and moves into the screen.
+7. Fix Spawning so it spawns at the sides and moves into the screen. (DONE)
 
 
 pink guy = done
