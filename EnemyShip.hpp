@@ -10,8 +10,8 @@ private:
     int AIActiveYLoc = 0;
     int GetTrackingDirection();
     int GetEntranceDirection();
-    enum MOVEMENT_TYPES {UP,DOWN,LEFT,RIGHT,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT};
-    int MOVEMENT_TYPES_DIR[8] = {0,180,270,90,315,45,225,135};
+    int GetAIX();
+    int GetAIY();
 
 public:
     virtual bool Draw();

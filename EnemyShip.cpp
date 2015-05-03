@@ -34,101 +34,54 @@ bool ClosedGap(int point_old, int point_new, int point_ref) {
     return false;
 }
 
-//Mathematical Consultant - Tom 'Skinny' Christopher.
-int GapAmmount(int point_old, int point_new, int point_ref) {
-    int tmp = (std::abs(point_old-point_ref)-std::abs(point_new-point_ref));
-    if (point_old < point_ref) {
-        if (point_new > point_old) {
-            return (point_old - point_new);
-        }
+int EnemyShip::GetAIX()
+{
+    if (XLocation > trackingPlayer->GetXLocation())
+    {
+        return 270;
     }
-    return tmp;
+    else
+    {
+        return 90;
+    }
+}
+
+int EnemyShip::GetAIY()
+{
+    if (YLocation > trackingPlayer->GetYLocation())
+    {
+        //Y Is Larger needs to be smaller.
+        return 180;
+    }
+    else
+    {
+        return 0;
+    }
+
 }
 
 int EnemyShip::GetTrackingDirection()
 {
-    //Re-Write AI. - Needs to Retun the Direction We need togo. Up|Down|Left|Right
-    //Try each Method
-    //If the Method is going away from the player skip it.
-    //Work out How Many Steps that method takes untill the X or Y is met. If the Answer is 0 then skip it becuase your on the same X or Y
-    //If the method is taking longer than the shortest so far skip it.
-    //Work out the Smallest steps out of the methoids and use that one.
-    int BestMethod = 0;
-    int BestXImprov = 0;
-    int BestYImprov = 0;
-    int test = MOVEMENT_TYPES_DIR[DOWN];
-
-    int ThearyX, ThearyY, Before_ThearyX, Before_ThearyY, CurrentMethod;
-    bool improved = false;
-    for (int i=0; i<8; i++)
+    //IF X is more important
+    if (XLocation == trackingPlayer->GetXLocation())
     {
-        CurrentMethod = i;
-        ThearyX = XLocation;
-        Before_ThearyX = XLocation;
-        ThearyY = YLocation;
-        Before_ThearyY = YLocation;
-        improved = false;
-        do  //Run through each method untill they stop being usefull
-        {
-            switch (i)
-            {
-            case UP:
-                ThearyY++;
-                break;
-            case DOWN:
-                ThearyY--;
-                break;
-            case LEFT:
-                ThearyX--;
-                break;
-            case RIGHT:
-                ThearyX++;
-                break;
-            case UP_LEFT:
-                ThearyY++;
-                ThearyX--;
-                break;
-            case UP_RIGHT:
-                ThearyY++;
-                ThearyX++;
-                break;
-            case DOWN_LEFT:
-                ThearyY--;
-                ThearyX--;
-                break;
-            case DOWN_RIGHT:
-                ThearyY--;
-                ThearyX++;
-                break;
-            }
-            //Right That method has stoped being usefull.
-            //How did it do?
-            int XImprove,YImprove;
-            XImprove = GapAmmount(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation());
-            YImprove = GapAmmount(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation());
-            if ((XImprove > 0) || (YImprove > 0))
-            {
-                //Right so We made some progress. Yay!
-                if ( (XImprove > BestXImprov) || (YImprove > BestYImprov))
-                {
-                    BestXImprov = XImprove;
-                    BestYImprov = YImprove;
-                    BestMethod = CurrentMethod;
-                    improved = true;
-                }
-                else
-                {
-                    improved = false;
-                }
-            }
-            else
-            {
-                improved = false;
-            }
-        }
-        while (improved); //check goes here
+        //XLocation is Matched need to find Y
+        return GetAIY();
     }
-    return (MOVEMENT_TYPES_DIR[BestMethod]);
+    else
+    {
+        return GetAIX();
+    }
+    //IF Y is more Important
+    if (YLocation == trackingPlayer->GetYLocation())
+    {
+        //YLocation Is Matchd need to findX
+        return GetAIX();
+    }
+    else
+    {
+        return GetAIY();
+    }
 }
 
 
