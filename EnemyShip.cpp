@@ -34,11 +34,13 @@ bool ClosedGap(int point_old, int point_new, int point_ref) {
 }
 
 int GapAmmount(int point_old, int point_new, int point_ref) {
-    if (point_ref < point_old){
+    if ((point_old > point_ref) && (point_new > point_ref)) {
         return (point_old - point_new);
-    }else{
-        return (point_new - point_old);
     }
+    if ((point_old < point_ref) && (point_new < point_ref)) {
+        return (point_old - point_new);
+    }
+    return -1;
 }
 
 int EnemyShip::GetTrackingDirection() {
@@ -49,12 +51,14 @@ int EnemyShip::GetTrackingDirection() {
     //If the method is taking longer than the shortest so far skip it.
     //Work out the Smallest steps out of the methoids and use that one.
     int ThearyX, ThearyY, Before_ThearyX, Before_ThearyY, CurrentMethod;
+    bool improved = false;
     for (int i=0;i<8;i++) {
         CurrentMethod = i;
         ThearyX = XLocation;
         Before_ThearyX = XLocation;
         ThearyY = YLocation;
         Before_ThearyY = YLocation;
+        improved = false;
         do{ //Run through each method untill they stop being usefull
             switch (i) {
             case UP:
@@ -86,17 +90,23 @@ int EnemyShip::GetTrackingDirection() {
                 ThearyX++;
             break;
             }
-        }while (((ClosedGap(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation())==true)||(ClosedGap(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation())==true)));
         //Right That method has stoped being usefull.
         //How did it do?
         int XImprove,YImprove;
         XImprove = GapAmmount(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation());
         YImprove = GapAmmount(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation());
-        if ((XImprove >! 0) && (YImprove >! 0)) {continue;} //No Improvemnt! Skip it!!!
+        if ((XImprove > 0) || (YImprove > 0)) {
         //Right so We made some progress. Yay!
-        if ( (XImprove >= BestXImprov) || (YImprove >= BestYImprov)) {
+        if ( (XImprove > BestXImprov) || (YImprove > BestYImprov)) {
             BestMethod = CurrentMethod;
+            improved = true;
+        }else{
+            improved = false;
         }
+        }else{
+            improved = false;
+        }
+            }while (improved);//check goes here
     }
     return (BestMethod * 45);
 }
