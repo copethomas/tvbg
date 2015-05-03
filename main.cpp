@@ -7,6 +7,7 @@
 #include "Text.hpp"
 #include "TextStats.hpp"
 #include "SpawnEngine.hpp"
+#include "Message.hpp"
 
 void Fatal_Error(std::string message,JAMCT_Logger *logger) {
     logger->Log(JAMCT_Logger::CRIT,"Main","--->Fatal Application Error<---");
@@ -59,18 +60,18 @@ int main() {
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
     //***Title Text***
-    Text *title = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Start");
-    Text *youDied = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Respawn");
+   // Text *title = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Start");
+  //  Text *youDied = new Text(logger,(widthMM/3),(10),50,"Push <enter> to Respawn");
     TextStats *stats = new TextStats(logger,widthMM - 90,heightMM - 20,15,world);
-    youDied->SetHidden(true);
-    world->AddEntity(title);
-    world->AddEntity(youDied);
+//    youDied->SetHidden(true);
+//    world->AddEntity(title);
+//    world->AddEntity(youDied);
     world->AddEntity(stats);
     while (!glfwWindowShouldClose(window)) {
         //**********StartGame************
         if (world->GetGameState() == World::START) {
             if (glfwGetKey(window,GLFW_KEY_ENTER)){
-                title->SetHidden(true);
+//                title->SetHidden(true);
                 world->SetGameState(World::RUNNING);
                 spawner->SetPause(false);
             }
@@ -94,11 +95,11 @@ int main() {
 
         //************START GAMEOVER***********
         if (world->GetGameState() == World::GAMEOVER) {
-                youDied->SetHidden(false);
+//                youDied->SetHidden(false);
                 spawner->SetPause(true);
                 if (glfwGetKey(window,GLFW_KEY_ENTER)){
                     world->SetGameState(World::RUNNING);
-                    youDied->SetHidden(true);
+//                    youDied->SetHidden(true);
                     world->Respawn();
                     spawner->SetPause(false);
                     spawner->SetLevel(1);
@@ -109,12 +110,17 @@ int main() {
         world->RunCollisionDetection();
         world->ProcessFPS();
     }
+//    title->SetHidden(true);
+//    youDied->SetHidden(true);
+    Message *shutdownmsg = new Message(logger,(widthMM/3),(10),50,"Shutting Down. Please wait...",3000);
+    world->AddEntity(shutdownmsg);
+    world->Render();
     spawner->Shutdown();
-    delete spawner;
-    delete world; //World Shutdown is part of the deconstructor.
     logger->Log(JAMCT_Logger::INFO,"Main","Window Closes. Application going down...");
     glfwDestroyWindow(window);
     glfwTerminate();
+    delete spawner;
+    delete world; //World Shutdown is part of the deconstructor.
     logger->Flush();
     logger->Shutdown();
     delete logger;

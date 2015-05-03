@@ -3,9 +3,11 @@
 #include "PlayerShip.hpp"
 class EnemyShip: public Ship {
 
+protected:
+    bool AIActive = false;
+
 private:
     PlayerShip *trackingPlayer;
-    bool AIActive = false;
     int AIActiveXLoc = 0;
     int AIActiveYLoc = 0;
     int GetTrackingDirection();

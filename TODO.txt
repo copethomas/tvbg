@@ -1,9 +1,6 @@
 1. Add other EnemyShips
-2. Fix Text Render? Memory Errors? Not Beling deleted?
-3. Anounch Levels and Shutdown
 4. Fix Triangle Col Detection.
 5. Fix the AI Hitting the Magic Area.
-6. Spawing on the Edges (top)
 7. Fix Spawn Rates.
 
 

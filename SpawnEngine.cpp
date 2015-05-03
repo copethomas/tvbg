@@ -1,6 +1,7 @@
 #include "SpawnEngine.hpp"
 #include "EnemyShip.hpp"
 #include "EnemyFighter.hpp"
+#include "Message.hpp"
 
 SpawnEngine::SpawnEngine(JAMCT_Logger *in_Logger, World* gameWorld,PlayerShip *in_thePlayer)
 {
@@ -8,8 +9,8 @@ SpawnEngine::SpawnEngine(JAMCT_Logger *in_Logger, World* gameWorld,PlayerShip *i
     SpawnEngine::Logger = in_Logger;
     Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","SpawnEngine Stating...");
     SpawnEngine::thePlayer = in_thePlayer;
-    std::thread spawnThreadLauncher (&SpawnEngine::SpawnThread,this);
-    std::swap(spawnThreadLauncher, SpawnEngine::Spawn);
+    //std::thread spawnThreadLauncher (&SpawnEngine::SpawnThread,this);
+    //std::swap(spawnThreadLauncher, SpawnEngine::Spawn);
 }
 
 void SpawnEngine::SetPause(bool is_pause)
@@ -44,8 +45,11 @@ void SpawnEngine::SpawnThread()
         //Update Level with the Score.
         if ( theWorld->GetScore() > ((Level * SCORE_PER_LEVEL) + (Level * SCORE_PER_LEVEL))) {
             SpawnEngine::Level++;
-            if (SpawnDelay < 20) {
-                SpawnEngine::SpawnDelay -= 10;
+            Message *levelup = new Message(Logger,(theWorld->GetScreenWidth()/2),(10),50,"Level " + std::to_string(Level),1500);
+            theWorld->AddEntity(levelup);
+            if (SpawnDelay > 20) {
+                SpawnEngine::SpawnDelay -= 50;
+            }else{
                 Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Spawn Delay Maxed out! Will not go lower than: " + std::to_string(SpawnDelay));
             }
             Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Reached Level " + std::to_string(Level) + " Spawn Delay = " + std::to_string(SpawnDelay));

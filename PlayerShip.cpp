@@ -1,7 +1,7 @@
 #include "PlayerShip.hpp"
 #include <GLFW/glfw3.h>
 #include "BulletEntity.hpp"
-#include "EnemyShip.hpp"
+#include "EnemyFighter.hpp"
 #include "Explosion.hpp"
 bool PlayerShip::Draw()
 {
@@ -80,8 +80,9 @@ void PlayerShip::DebugKey(bool keyState)
         //EnemyShip *test = new EnemyShip(Logger,600,600,1,theWorld,this);
         //ExplosionPartical *test = new ExplosionPartical(Logger,50,50,0,100,false,false);
         //Explosion *test = new Explosion(Logger,50,50,8,10,false,false,theWorld);
-        //theWorld->AddEntity(test);
-        //KeyPress = CoolDown;
+        EnemyFighter *test = new EnemyFighter(Logger,500,500,10,theWorld,this);
+        theWorld->AddEntity(test);
+        KeyPress = CoolDown;
     }
 }
 
