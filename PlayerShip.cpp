@@ -77,11 +77,11 @@ void PlayerShip::DebugKey(bool keyState)
 {
     if (KeyPress == 0 && (keyState == true))
     {
-        EnemyShip *test = new EnemyShip(Logger,50,50,1,theWorld,this);
+        EnemyShip *test = new EnemyShip(Logger,600,600,1,theWorld,this);
         //ExplosionPartical *test = new ExplosionPartical(Logger,50,50,0,100,false,false);
         //Explosion *test = new Explosion(Logger,50,50,8,10,false,false,theWorld);
-        //theWorld->AddEntity(test);
-        //KeyPress = CoolDown;
+        theWorld->AddEntity(test);
+        KeyPress = CoolDown;
     }
 }
 

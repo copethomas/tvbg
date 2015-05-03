@@ -3,6 +3,7 @@
 #include "Explosion.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <math.h>
 
 bool EnemyShip::Draw()
 {
@@ -33,83 +34,99 @@ bool ClosedGap(int point_old, int point_new, int point_ref) {
     return false;
 }
 
-//Mathmatical Consulktent - Tom 'Skinny' Christfer.
+//Mathematical Consultant - Tom 'Skinny' Christopher.
 int GapAmmount(int point_old, int point_new, int point_ref) {
-    if ((point_old > point_ref) && (point_new > point_ref)) {
-        return (point_old - point_new);
+    int tmp = (std::abs(point_old-point_ref)-std::abs(point_new-point_ref));
+    if (point_old < point_ref) {
+        if (point_new > point_old) {
+            return (point_old - point_new);
+        }
     }
-    if ((point_old < point_ref) && (point_new < point_ref)) {
-        return (point_old - point_new);
-    }
-    return -1;
+    return tmp;
 }
 
-int EnemyShip::GetTrackingDirection() {
+int EnemyShip::GetTrackingDirection()
+{
     //Re-Write AI. - Needs to Retun the Direction We need togo. Up|Down|Left|Right
     //Try each Method
     //If the Method is going away from the player skip it.
     //Work out How Many Steps that method takes untill the X or Y is met. If the Answer is 0 then skip it becuase your on the same X or Y
     //If the method is taking longer than the shortest so far skip it.
     //Work out the Smallest steps out of the methoids and use that one.
+    int BestMethod = 0;
+    int BestXImprov = 0;
+    int BestYImprov = 0;
+    int test = MOVEMENT_TYPES_DIR[DOWN];
+
     int ThearyX, ThearyY, Before_ThearyX, Before_ThearyY, CurrentMethod;
     bool improved = false;
-    for (int i=0;i<8;i++) {
+    for (int i=0; i<8; i++)
+    {
         CurrentMethod = i;
         ThearyX = XLocation;
         Before_ThearyX = XLocation;
         ThearyY = YLocation;
         Before_ThearyY = YLocation;
         improved = false;
-        do{ //Run through each method untill they stop being usefull
-            switch (i) {
+        do  //Run through each method untill they stop being usefull
+        {
+            switch (i)
+            {
             case UP:
                 ThearyY++;
-            break;
+                break;
             case DOWN:
                 ThearyY--;
-            break;
+                break;
             case LEFT:
                 ThearyX--;
-            break;
+                break;
             case RIGHT:
                 ThearyX++;
-            break;
+                break;
             case UP_LEFT:
                 ThearyY++;
                 ThearyX--;
-            break;
+                break;
             case UP_RIGHT:
                 ThearyY++;
                 ThearyX++;
-            break;
+                break;
             case DOWN_LEFT:
                 ThearyY--;
                 ThearyX--;
-            break;
+                break;
             case DOWN_RIGHT:
                 ThearyY--;
                 ThearyX++;
-            break;
+                break;
             }
-        //Right That method has stoped being usefull.
-        //How did it do?
-        int XImprove,YImprove;
-        XImprove = GapAmmount(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation());
-        YImprove = GapAmmount(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation());
-        if ((XImprove > 0) || (YImprove > 0)) {
-        //Right so We made some progress. Yay!
-        if ( (XImprove > BestXImprov) || (YImprove > BestYImprov)) {
-            BestXImprov = XImprove;
-            BestYImprov = YImprove;
-            BestMethod = CurrentMethod;
-            improved = true;
-        }else{
-            improved = false;
+            //Right That method has stoped being usefull.
+            //How did it do?
+            int XImprove,YImprove;
+            XImprove = GapAmmount(Before_ThearyX,ThearyX,trackingPlayer->GetXLocation());
+            YImprove = GapAmmount(Before_ThearyY,ThearyY,trackingPlayer->GetYLocation());
+            if ((XImprove > 0) || (YImprove > 0))
+            {
+                //Right so We made some progress. Yay!
+                if ( (XImprove > BestXImprov) || (YImprove > BestYImprov))
+                {
+                    BestXImprov = XImprove;
+                    BestYImprov = YImprove;
+                    BestMethod = CurrentMethod;
+                    improved = true;
+                }
+                else
+                {
+                    improved = false;
+                }
+            }
+            else
+            {
+                improved = false;
+            }
         }
-        }else{
-            improved = false;
-        }
-            }while (improved);//check goes here
+        while (improved); //check goes here
     }
     return (MOVEMENT_TYPES_DIR[BestMethod]);
 }
@@ -177,5 +194,5 @@ EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_hea
     EnemyShip::Direction = GetEntranceDirection();
     EnemyShip::AIActiveYLoc = theWorld->RandomNumber(theWorld->GetScreenHeight(),100);
     EnemyShip::AIActiveXLoc = theWorld->RandomNumber(theWorld->GetScreenWidth(),100);
-
+    AIActive = true;
 }

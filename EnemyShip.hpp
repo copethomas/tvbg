@@ -11,10 +11,7 @@ private:
     int GetTrackingDirection();
     int GetEntranceDirection();
     enum MOVEMENT_TYPES {UP,DOWN,LEFT,RIGHT,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT};
-    int MOVEMENT_TYPES_DIR[8] = {0,180,270,90,45,315,135,225};
-    int BestMethod = 0;
-    int BestXImprov = 0;
-    int BestYImprov = 0;
+    int MOVEMENT_TYPES_DIR[8] = {0,180,270,90,315,45,225,135};
 
 public:
     virtual bool Draw();

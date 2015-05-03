@@ -74,17 +74,17 @@ void SpawnEngine::SpawnThread()
                 SpawnY = -40;
             break;
         }
-        EnemyShip *pinkguy = new EnemyShip(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
-        EnemyFighter *test = new EnemyFighter(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
+       // EnemyShip *pinkguy = new EnemyShip(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
+       // EnemyFighter *test = new EnemyFighter(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
         switch (SpawnEngine::Level) {
             case 1:
-                theWorld->AddEntity(pinkguy);
+             //   theWorld->AddEntity(pinkguy);
                 break;
             case 2:
-                theWorld->AddEntity(pinkguy);
+              //  theWorld->AddEntity(pinkguy);
                 break;
             case 3:
-                theWorld->AddEntity(pinkguy);
+              //  theWorld->AddEntity(pinkguy);
                 break;
         }
     }
