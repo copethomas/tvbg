@@ -147,5 +147,4 @@ EnemyShip::EnemyShip(JAMCT_Logger* in_logger, int startx, int starty, int in_hea
     EnemyShip::Direction = GetEntranceDirection();
     EnemyShip::AIActiveYLoc = theWorld->RandomNumber(theWorld->GetScreenHeight(),100);
     EnemyShip::AIActiveXLoc = theWorld->RandomNumber(theWorld->GetScreenWidth(),100);
-    AIActive = true;
 }

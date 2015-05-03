@@ -74,7 +74,14 @@ void World::Render() {
         }
         //Process Dead Entities.
         if (renderEntity->GetDead()) {
-            WorldItemsIterator = WorldItems.erase(WorldItemsIterator);
+            //Bug Fix - NEVER DELETE THE PLAYER!
+            if( PlayerShip* good_guy = dynamic_cast< PlayerShip* >( renderEntity )) {
+                renderEntity->SetDead(false);
+                continue; // Skip! Can't delete Player
+            }else{
+                WorldItemsIterator = WorldItems.erase(WorldItemsIterator);
+                delete renderEntity;
+            }
         }else {
             ++WorldItemsIterator;
         }
