@@ -133,11 +133,15 @@ bool World::PosibbleCollision(Entity *target , Entity *check, int bound) {
     return true;
 }
 
-bool World::CheckCollision(Entity *target , Entity *check) {
-if ( (target->GetXLocation()) < (check->GetXLocation() + check->GetWidth()) &&
-   (target->GetXLocation() + target->GetWidth()) > (check->GetXLocation()) &&
-   (target->GetYLocation()) < (check->GetYLocation() + check->GetHeight()) &&
-   (target->GetHeight() + target->GetYLocation()) > (check->GetYLocation())) {
+bool World::CheckCollision(Entity *A , Entity *B) {
+    //THANK YOU! - http://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
+    //AND THANK YOU! - http://en.wikipedia.org/wiki/Minkowski_addition
+    float w = 0.5 * (A->GetWidth() + B->GetWidth());
+    float h = 0.5 * (A->GetHeight() + B->GetHeight());
+    float dx = A->GetXLocation() - B->GetXLocation();
+    float dy = A->GetYLocation() - B->GetYLocation();
+    if (abs(dx) <= w && abs(dy) <= h)
+    {
         return true;
     }else{
         return false;
