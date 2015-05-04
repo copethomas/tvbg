@@ -5,9 +5,9 @@ class EnemyShip: public Ship {
 
 protected:
     bool AIActive = false;
+    PlayerShip *trackingPlayer;
 
 private:
-    PlayerShip *trackingPlayer;
     int AIActiveXLoc = 0;
     int AIActiveYLoc = 0;
     int GetTrackingDirection();

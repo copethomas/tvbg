@@ -1,5 +1,4 @@
 1. Add other EnemyShips
-4. Fix Triangle Col Detection.
 5. Fix the AI Hitting the Magic Area.
 7. Fix Spawn Rates.
 

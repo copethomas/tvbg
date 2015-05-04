@@ -15,7 +15,8 @@ private:
     JAMCT_Logger *Logger;
     PlayerShip *thePlayer;
     const int SCORE_PER_LEVEL = 200;
-    int SpawnDelay = 2000;
+    int SpawnDelay = 5000;
+    int GetSpawnLoc(bool ReturnX, int SpawnSide);
 
 public:
     SpawnEngine(JAMCT_Logger *in_Logger, World *gameWorld,PlayerShip *in_thePlayer);

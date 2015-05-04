@@ -37,6 +37,7 @@ private:
     int HEIGHT;
     int WIDTH;
     const int BROAD_DETECTION_RANGE = 100;
+    const int COLLISION_DETECTION_OFFSET_BIAS = 50;
     std::map<Entity*, std::vector<Entity*>*> EntityColls; //A Map Containing a pointer to a Vectory of Object. Weird :)
     std::map<Entity*, std::vector<Entity*>*>::iterator EntityCollsIterator;
     Score *Scoreboard;

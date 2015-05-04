@@ -9,8 +9,7 @@ bool PlayerShip::Draw()
     if (PlayerShip::Hidden) {
         return true;
     }
-    //DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,0,1,Direction);
-    DrawUtil_DrawSquare(XLocation,YLocation,Height,Width,0,0,1);
+    DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,0,1,Direction);
     return true;
 }
 
@@ -45,7 +44,7 @@ void PlayerShip::DebugKey(bool keyState)
 PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world): Ship(in_logger,startx,starty,in_health,home_world)
 {
     Direction = 0; //Pointing Forwards.
-    Speed = 3; //Sort of Fast Ship
+    Speed = 6; //Sort of Fast Ship
     Height = 30;
     Width = 30;
 }

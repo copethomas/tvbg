@@ -71,7 +71,9 @@ void World::Render() {
             renderEntity->SetDead(true);
         }
         if( MovableEntity* movable = dynamic_cast< MovableEntity* >( renderEntity ) ) {
+            World::SpawnLocked.unlock();
             movable->DefaultMove();
+            World::SpawnLocked.lock();
         }
         //Process Dead Entities.
         if (renderEntity->GetDead()) {
@@ -136,8 +138,15 @@ bool World::PosibbleCollision(Entity *target , Entity *check, int bound) {
 bool World::CheckCollision(Entity *A , Entity *B) {
     //THANK YOU! - http://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
     //AND THANK YOU! - http://en.wikipedia.org/wiki/Minkowski_addition
-    float w = 0.5 * (A->GetWidth() + B->GetWidth());
-    float h = 0.5 * (A->GetHeight() + B->GetHeight());
+    int BIAS = COLLISION_DETECTION_OFFSET_BIAS;
+    if( PlayerShip* isPlayer = dynamic_cast< PlayerShip* >( A ) ) {
+            BIAS = 0;
+    }
+    if( PlayerShip* isPlayer = dynamic_cast< PlayerShip* >( B ) ) {
+            BIAS = 0;
+    }
+    float w = 0.5 * (A->GetWidth() + B->GetWidth() + BIAS);
+    float h = 0.5 * (A->GetHeight() + B->GetHeight() + BIAS);
     float dx = A->GetXLocation() - B->GetXLocation();
     float dy = A->GetYLocation() - B->GetYLocation();
     if (abs(dx) <= w && abs(dy) <= h)
