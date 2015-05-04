@@ -1,12 +1,13 @@
 #include "Text.hpp"
 #include <FTGL/ftgl.h>
+#include "About.hpp"
 
 bool Text::Draw()
 {
     if (Hidden) {
         return true;
     }
-    FTGLPixmapFont font("/usr/share/fonts/gnu-free/FreeSerif.ttf");
+    FTGLPixmapFont font(_FONT_LOCATION_.c_str());
     FTPoint location(Text::XLocation,Text::YLocation);
     if(font.Error()){
         return false;

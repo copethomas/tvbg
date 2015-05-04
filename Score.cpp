@@ -4,7 +4,7 @@
 
 bool Score::Draw()
 {
-    FTGLPixmapFont font("/usr/share/fonts/gnu-free/FreeSerif.ttf");
+    FTGLPixmapFont font(_FONT_LOCATION_.c_str());
     FTPoint location(Score::XLocation,Score::YLocation);
     if(font.Error()){
         return false;

@@ -1,10 +1,11 @@
 #include <FTGL/ftgl.h>
 #include "TextStats.hpp"
+#include "About.hpp"
 
 bool TextStats::Draw()
 {
     TextStats::DisplayText = "E:" + std::to_string(TextStats::gameWorld->GetEntitys()) + " - FPS:" + std::to_string(TextStats::gameWorld->GetFPS());
-    FTGLPixmapFont font("/usr/share/fonts/gnu-free/FreeSerif.ttf");
+    FTGLPixmapFont font(_FONT_LOCATION_.c_str());
     FTPoint location(TextStats::XLocation,TextStats::YLocation);
     if(font.Error()){
         return false;

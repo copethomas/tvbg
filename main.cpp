@@ -1,4 +1,5 @@
 #include <GLFW/glfw3.h>
+#include <fstream>
 #include <string>
 #include <iostream>
 #include "JAMCT_Logger.hpp"
@@ -34,6 +35,13 @@ int main() {
     logger->Log(JAMCT_Logger::INFO,"Main","Starting GLFW...");
     if (!glfwInit()) {
         Fatal_Error("Unable to start GLFW",logger);
+    }
+    std::ifstream myfile (_FONT_LOCATION_);
+    if (myfile.is_open()) {
+        logger->Log(JAMCT_Logger::INFO,"Main","Font File OK!");
+        myfile.close();
+    }else{
+        Fatal_Error("Unable to read font file at: " + _FONT_LOCATION_,logger);
     }
     GLFWwindow* window;
     logger->Log(JAMCT_Logger::INFO,"Main","Creating Window...");
