@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 #include <ctime>
-
+#include <iostream>
 World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int screen_width): Logger(in_logger), Window(in_window) {
     Logger->Log(JAMCT_Logger::INFO,"World","Loading World...");
     World::WIDTH = screen_width;
@@ -18,6 +18,7 @@ World::World(JAMCT_Logger *in_logger,GLFWwindow* in_window,int screen_hight,int 
 
 World::~World() {
     Logger->Log(JAMCT_Logger::INFO,"World","World Shutting Down...");
+    Logger->Log(JAMCT_Logger::INFO,"World","Waiting for Threads to Finish. Please standby.");
     int i = 0;
     for (Entity* renderEntity : World::WorldItems) {
         delete renderEntity;
@@ -111,7 +112,7 @@ bool World::EqualsBoundCheck(int loc, int target,int bound)
 }
 
 // TODO (tom#1#28/04/15): Need to opertimise this check
-bool PosibbleCollision(Entity *target , Entity *check, int bound) {
+bool World::PosibbleCollision(Entity *target , Entity *check, int bound) {
 
     int x = target->GetXLocation();
     int y = target->GetYLocation();
@@ -132,8 +133,24 @@ bool PosibbleCollision(Entity *target , Entity *check, int bound) {
     return true;
 }
 
-bool CheckCollision(Entity *target , Entity *check) {
-    if (target->GetXLocation() < check->GetXLocation() + check->GetWidth() && target->GetXLocation() + target->GetWidth() > check->GetXLocation() && target->GetYLocation() < check->GetYLocation() + check->GetHeight() && target->GetHeight() + target->GetYLocation() > check->GetYLocation()) {
+bool World::CheckCollision(Entity *target , Entity *check) {
+
+//Logger->Log(JAMCT_Logger::DEBU,"Collision Detection","Target X=" + std::to_string(target->GetXLocation()) + " Y= " + std::to_string(target->GetYLocation()) + " W= " + std::to_string(target->GetWidth()) + " H= " + std::to_string(target->GetHeight()));
+//Logger->Log(JAMCT_Logger::DEBU,"Collision Detection","Check X=" + std::to_string(check->GetXLocation()) + " Y= " + std::to_string(check->GetYLocation()) + " W= " + std::to_string(check->GetWidth()) + " H= " + std::to_string(check->GetHeight()));
+int TargetSpeedDiff = 0;
+int CheckSpeedDiff = 0;
+
+if (((target->GetXLocation() > check->GetXLocation())) && ((target->GetYLocation() > check->GetYLocation()))) {
+    if (MovableEntity* targetspeed=dynamic_cast<MovableEntity*>(target)){TargetSpeedDiff=(targetspeed->GetSpeed());}
+    if (MovableEntity* checkspeed=dynamic_cast<MovableEntity*>(check)){CheckSpeedDiff=(checkspeed->GetSpeed());}
+}
+
+if ( (target->GetXLocation() - TargetSpeedDiff) < (check->GetXLocation() + check->GetWidth() + CheckSpeedDiff) &&
+   (target->GetXLocation() + target->GetWidth() + TargetSpeedDiff) > (check->GetXLocation() - CheckSpeedDiff) &&
+   (target->GetYLocation() - TargetSpeedDiff) < (check->GetYLocation() + check->GetHeight() + CheckSpeedDiff) &&
+   (target->GetHeight() + target->GetYLocation() + TargetSpeedDiff) > (check->GetYLocation() - CheckSpeedDiff)) {
+    // collision detected!
+      //  Logger->Log(JAMCT_Logger::EMER,"Collision Detection", "*DETECTED*");
         return true;
     }else{
         return false;

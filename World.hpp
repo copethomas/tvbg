@@ -46,6 +46,8 @@ private:
     struct tm * timeinfo;
     int FPSSeconds = 0;
     std::mutex SpawnLocked;
+    bool CheckCollision(Entity *target , Entity *check);
+    bool PosibbleCollision(Entity *target , Entity *check, int bound);
 
 };
 

@@ -18,6 +18,7 @@ public:
     bool MoveLeft();
     bool MoveRight();
     void KeyCoolDown();
+    int GetSpeed();
     MovableEntity(JAMCT_Logger *in_logger,int startx,int starty);
 
 };

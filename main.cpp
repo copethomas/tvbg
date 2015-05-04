@@ -19,8 +19,10 @@ void Fatal_Error(std::string message,JAMCT_Logger *logger) {
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
         glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+
 }
 
 int main() {
@@ -112,7 +114,8 @@ int main() {
     }
 //    title->SetHidden(true);
 //    youDied->SetHidden(true);
-    Message *shutdownmsg = new Message(logger,(widthMM/3),(10),50,"Shutting Down. Please wait...",3000);
+    logger->Log(JAMCT_Logger::INFO,"Main","*Shutdown Requested*");
+    Message *shutdownmsg = new Message(logger,(widthMM/3),(10),50,"Shutting Down. Please wait...",1500);
     world->AddEntity(shutdownmsg);
     world->Render();
     spawner->Shutdown();

@@ -31,7 +31,11 @@ void SpawnEngine::Shutdown()
     Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","SpawnEngine Shutting Down...");
     SpawnEngine::KeepGoing = false;
     SpawnEngine::Pause = false;
-    SpawnEngine::Spawn.join();
+    try{
+        SpawnEngine::Spawn.join();
+    }catch(std::exception& errorMessage) {
+        Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","Tried to join to dead thread. Skipping...");
+    }
     Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","SpawnEngine Dead");
 }
 

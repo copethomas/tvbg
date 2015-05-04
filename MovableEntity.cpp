@@ -123,6 +123,10 @@ void MovableEntity::KeyCoolDown()
     }
 }
 
+int MovableEntity::GetSpeed()
+{
+    return MovableEntity::Speed;
+}
 
 
 
