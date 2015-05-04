@@ -1,53 +1,13 @@
 #include "PlayerDeathPartical.hpp"
+#include "DrawUtil.hpp"
 #include <GLFW/glfw3.h>
 bool PlayerDeathPartical::Draw()
 {
-    glBegin(GL_TRIANGLES);
-    glColor3f(0.0f,0.0f,1.0f); //Blue Player
-    switch(PlayerDeathPartical::SpinDirection)
-    {
-    case 0:
-        glVertex2f(XLocation,YLocation+(Height /2));
-        glVertex2f(XLocation+(Width /2),YLocation-(Height / 2));
-        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
-        break;
-    case 45:
-        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
-        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
-        break;
-    case 90:
-        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
-        glVertex2f(XLocation+(Width/2),YLocation);
-        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
-        break;
-    case 135:
-        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
-        break;
-    case 180:
-        glVertex2f(XLocation,YLocation-(Height /2));
-        glVertex2f(XLocation-(Width /2),YLocation+(Height / 2));
-        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
-        break;
-    case 225:
-        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
-        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
-        break;
-    case 270:
-        glVertex2f(XLocation+(Width/2),YLocation-(Height/2));
-        glVertex2f(XLocation-(Width/2),YLocation);
-        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
-        break;
-    case 315:
-        glVertex2f(XLocation-(Width/2),YLocation+(Height/2));
-        glVertex2f(XLocation+(Width/2),YLocation+(Height/2));
-        glVertex2f(XLocation-(Width/2),YLocation-(Height/2));
-        break;
+    DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,0,1,SpinDirection);
+    PlayerDeathPartical::SpinDirection +=45;
+    if (PlayerDeathPartical::SpinDirection > 315) {
+        PlayerDeathPartical::SpinDirection = 0;
     }
-    glEnd();
     return true;
 }
 

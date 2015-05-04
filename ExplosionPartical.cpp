@@ -1,16 +1,11 @@
 #include "ExplosionPartical.hpp"
 #include "Ship.hpp"
 #include "PlayerShip.hpp"
+#include "DrawUtil.hpp"
 #include <GLFW/glfw3.h>
 bool ExplosionPartical::Draw()
 {
-    glBegin(GL_QUADS);
-    glColor3f(1.0f,1.0f,0.0f); //Blue Player
-    glVertex2f(XLocation, YLocation);
-    glVertex2f(XLocation + Width, YLocation);
-    glVertex2f(XLocation + Width, YLocation + Height);
-    glVertex2f(XLocation, YLocation + Height);
-    glEnd();
+    DrawUtil_DrawSquare(XLocation,YLocation,Height,Width,1,1,0);
     return true;
 }
 

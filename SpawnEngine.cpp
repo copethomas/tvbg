@@ -9,8 +9,8 @@ SpawnEngine::SpawnEngine(JAMCT_Logger *in_Logger, World* gameWorld,PlayerShip *i
     SpawnEngine::Logger = in_Logger;
     Logger->Log(JAMCT_Logger::INFO,"SpawnEngine","SpawnEngine Stating...");
     SpawnEngine::thePlayer = in_thePlayer;
-    //std::thread spawnThreadLauncher (&SpawnEngine::SpawnThread,this);
-    //std::swap(spawnThreadLauncher, SpawnEngine::Spawn);
+    std::thread spawnThreadLauncher (&SpawnEngine::SpawnThread,this);
+    std::swap(spawnThreadLauncher, SpawnEngine::Spawn);
 }
 
 void SpawnEngine::SetPause(bool is_pause)

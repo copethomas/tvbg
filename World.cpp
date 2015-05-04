@@ -134,23 +134,10 @@ bool World::PosibbleCollision(Entity *target , Entity *check, int bound) {
 }
 
 bool World::CheckCollision(Entity *target , Entity *check) {
-
-//Logger->Log(JAMCT_Logger::DEBU,"Collision Detection","Target X=" + std::to_string(target->GetXLocation()) + " Y= " + std::to_string(target->GetYLocation()) + " W= " + std::to_string(target->GetWidth()) + " H= " + std::to_string(target->GetHeight()));
-//Logger->Log(JAMCT_Logger::DEBU,"Collision Detection","Check X=" + std::to_string(check->GetXLocation()) + " Y= " + std::to_string(check->GetYLocation()) + " W= " + std::to_string(check->GetWidth()) + " H= " + std::to_string(check->GetHeight()));
-int TargetSpeedDiff = 0;
-int CheckSpeedDiff = 0;
-
-if (((target->GetXLocation() > check->GetXLocation())) && ((target->GetYLocation() > check->GetYLocation()))) {
-    if (MovableEntity* targetspeed=dynamic_cast<MovableEntity*>(target)){TargetSpeedDiff=(targetspeed->GetSpeed());}
-    if (MovableEntity* checkspeed=dynamic_cast<MovableEntity*>(check)){CheckSpeedDiff=(checkspeed->GetSpeed());}
-}
-
-if ( (target->GetXLocation() - TargetSpeedDiff) < (check->GetXLocation() + check->GetWidth() + CheckSpeedDiff) &&
-   (target->GetXLocation() + target->GetWidth() + TargetSpeedDiff) > (check->GetXLocation() - CheckSpeedDiff) &&
-   (target->GetYLocation() - TargetSpeedDiff) < (check->GetYLocation() + check->GetHeight() + CheckSpeedDiff) &&
-   (target->GetHeight() + target->GetYLocation() + TargetSpeedDiff) > (check->GetYLocation() - CheckSpeedDiff)) {
-    // collision detected!
-      //  Logger->Log(JAMCT_Logger::EMER,"Collision Detection", "*DETECTED*");
+if ( (target->GetXLocation()) < (check->GetXLocation() + check->GetWidth()) &&
+   (target->GetXLocation() + target->GetWidth()) > (check->GetXLocation()) &&
+   (target->GetYLocation()) < (check->GetYLocation() + check->GetHeight()) &&
+   (target->GetHeight() + target->GetYLocation()) > (check->GetYLocation())) {
         return true;
     }else{
         return false;
@@ -159,11 +146,6 @@ if ( (target->GetXLocation() - TargetSpeedDiff) < (check->GetXLocation() + check
 
 void World::RunCollisionDetection()
 {
-
-  //  if (WorldItems.size() == 3) {
-//      Logger->Log(JAMCT_Logger::INFO,"CollisionDetection","NOW!!!");
-   // }
-
     //Broad Detection First. "What Entitys 'Could' Collide?"
     bool colDetected = false;
      for (Entity* collisionEntity : World::WorldItems) {
