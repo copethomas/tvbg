@@ -87,12 +87,13 @@ void SpawnEngine::SpawnThread()
             break;
         }
         if (Level > 0) {
-            EnemyShip *pinkguy = new EnemyShip(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
-            theWorld->AddEntity(pinkguy);
+      // EnemyFighter *fighter = new EnemyFighter(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
+        //    theWorld->AddEntity(fighter);
         }
         if (Level > 3) {
-            EnemyFighter *fighter = new EnemyFighter(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
-            theWorld->AddEntity(fighter);
+          //    EnemyShip *pinkguy = new EnemyShip(Logger,SpawnX,SpawnY,10,theWorld,thePlayer);
+           // theWorld->AddEntity(pinkguy);
+
         }
        }
     }

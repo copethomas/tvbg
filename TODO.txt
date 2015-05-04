@@ -5,7 +5,7 @@
 
 
 pink guy = done
-fighter = done
+fighter = needs to shoot at player
 bomber = explodes after time
 traper = lays down trapes whic explode after some time no ai just moves forward.
 tank = takes lots of hits and changes colour
