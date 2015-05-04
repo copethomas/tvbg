@@ -3,13 +3,14 @@
 
 bool EnemyFighter::Draw()
 {
-    DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,1,1,Direction);
+    //DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,1,1,Direction);
+    DrawUtil_DrawSquare(XLocation,YLocation,Height,Width,0,1,1);
     return true;
 }
 
 bool EnemyFighter::DefaultMove()
 {
-    EnemyShip::DefaultMove();
+    //EnemyShip::DefaultMove();
 }
 
 bool EnemyFighter::Shoot()
@@ -22,6 +23,7 @@ EnemyFighter::EnemyFighter(JAMCT_Logger* in_logger, int startx, int starty, int 
     EnemyFighter::Speed = 8;
     EnemyFighter::Height = 40;
     EnemyFighter::Width  = 40;
+    EnemyFighter::Direction = 0;
 }
 
 void EnemyFighter::Colision(Entity* colided_with)

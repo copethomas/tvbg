@@ -3,7 +3,8 @@
 
 bool BulletEntity::Draw()
 {
-    DrawUtil_DrawCircle(XLocation,YLocation,Width,160,1.0f,0.0f,0.0f);
+    //DrawUtil_DrawCircle(XLocation,YLocation,Width,160,1.0f,0.0f,0.0f);
+    DrawUtil_DrawSquare(XLocation,YLocation,Width,Height,1,0,0);
     return true;
 }
 

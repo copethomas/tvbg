@@ -9,7 +9,8 @@ bool PlayerShip::Draw()
     if (PlayerShip::Hidden) {
         return true;
     }
-    DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,0,1,Direction);
+    //DrawUtil_DrawTraingle(XLocation,YLocation,Height,Width,0,0,1,Direction);
+    DrawUtil_DrawSquare(XLocation,YLocation,Height,Width,0,0,1);
     return true;
 }
 
@@ -35,8 +36,8 @@ void PlayerShip::DebugKey(bool keyState)
         //EnemyShip *test = new EnemyShip(Logger,600,600,1,theWorld,this);
         //ExplosionPartical *test = new ExplosionPartical(Logger,50,50,0,100,false,false);
         //Explosion *test = new Explosion(Logger,50,50,8,10,false,false,theWorld);
-        //EnemyFighter *test = new EnemyFighter(Logger,500,500,10,theWorld,this);
-        //theWorld->AddEntity(test);
+        EnemyFighter *test = new EnemyFighter(Logger,500,500,10,theWorld,this);
+        theWorld->AddEntity(test);
         KeyPress = CoolDown;
     }
 }
@@ -44,7 +45,7 @@ void PlayerShip::DebugKey(bool keyState)
 PlayerShip::PlayerShip(JAMCT_Logger* in_logger, int startx, int starty, int in_health, World *home_world): Ship(in_logger,startx,starty,in_health,home_world)
 {
     Direction = 0; //Pointing Forwards.
-    Speed = 6; //Sort of Fast Ship
+    Speed = 3; //Sort of Fast Ship
     Height = 30;
     Width = 30;
 }
