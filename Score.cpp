@@ -11,7 +11,7 @@ bool Score::Draw()
     }
     font.FaceSize(15);
     std::string text;
-    text = "TVBG Version 0.7.4.3 | Created by Thomas Cope | Score = " + std::to_string(Score::GameScore);
+    text = "TVBG Version " + _APP_VERSION_ + " | Created by Thomas Cope | Score = " + std::to_string(Score::GameScore);
     font.Render(text.c_str(),text.length(),location);
     return true;
 }

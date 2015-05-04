@@ -1,6 +1,8 @@
 #ifndef ABOUT_HPP_INCLUDED
 #define ABOUT_HPP_INCLUDED
+#include <string>
 
-extern const char _TVBG_VERSION_[] = "Hello";
+const std::string _APP_VERSION_ = "0.8.6.9";
+const bool _DRAW_DEBUG_ = true;
 
 #endif // ABOUT_HPP_INCLUDED

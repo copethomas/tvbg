@@ -35,8 +35,8 @@ void PlayerShip::DebugKey(bool keyState)
         //EnemyShip *test = new EnemyShip(Logger,600,600,1,theWorld,this);
         //ExplosionPartical *test = new ExplosionPartical(Logger,50,50,0,100,false,false);
         //Explosion *test = new Explosion(Logger,50,50,8,10,false,false,theWorld);
-        EnemyFighter *test = new EnemyFighter(Logger,500,500,10,theWorld,this);
-        theWorld->AddEntity(test);
+        //EnemyFighter *test = new EnemyFighter(Logger,500,500,10,theWorld,this);
+        //theWorld->AddEntity(test);
         KeyPress = CoolDown;
     }
 }

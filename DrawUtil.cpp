@@ -1,6 +1,12 @@
 #include "DrawUtil.hpp"
+#include "About.hpp"
 #include <GLFW/glfw3.h>
 #include <math.h>
+
+void DrawDebug(int XLoc, int YLoc) {
+    DrawUtil_DrawCircle(XLoc,YLoc,2,160,1,1,1);
+}
+
 
 void DrawUtil_DrawCircle(float cx, float cy, float rad, int num_segments, float r, float g, float b ) {
 	glBegin(GL_LINE_LOOP);
@@ -15,10 +21,9 @@ void DrawUtil_DrawCircle(float cx, float cy, float rad, int num_segments, float 
 	glEnd();
 }
 
-
-
 void DrawUtil_DrawTraingle(int XLocation, int YLocation, int Height, int Width, float r, float g, float b,int Direction)
 {
+    if (_DRAW_DEBUG_) {DrawDebug(XLocation,YLocation);}
     glBegin(GL_TRIANGLES);
     glColor3f(r,g,b);
     switch(Direction)
@@ -69,6 +74,7 @@ void DrawUtil_DrawTraingle(int XLocation, int YLocation, int Height, int Width, 
 
 
 void DrawUtil_DrawSquare(int XLocation, int YLocation, int Height, int Width, float r, float g, float b) {
+    if (_DRAW_DEBUG_) {DrawDebug(XLocation,YLocation);}
     glBegin(GL_QUADS);
     glColor3f(r,g,b); //Blue Player
     glVertex2f(XLocation, YLocation);

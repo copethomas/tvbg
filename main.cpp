@@ -8,6 +8,7 @@
 #include "TextStats.hpp"
 #include "SpawnEngine.hpp"
 #include "Message.hpp"
+#include "About.hpp"
 
 void Fatal_Error(std::string message,JAMCT_Logger *logger) {
     logger->Log(JAMCT_Logger::CRIT,"Main","--->Fatal Application Error<---");
@@ -26,7 +27,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 int main() {
-    std::cout << "TVBG Version " << "0.7.4.3" << "\n";
+    std::cout << "TVBG Version " << _APP_VERSION_ << "\n";
     std::cout << "Created by Thomas Cope\n\n";
     std::cout << "Starting Application...\n\n";
     JAMCT_Logger *logger  = new JAMCT_Logger(0);
@@ -41,7 +42,8 @@ int main() {
     heightMM = mode->height;
     widthMM = mode->width;
     logger->Log(JAMCT_Logger::INFO,"Main","Window Size = " + std::to_string(widthMM) + " X " + std::to_string(heightMM));
-    window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",glfwGetPrimaryMonitor(),NULL);
+    std::string AppName = "TVBG Version " + _APP_VERSION_;
+    window = glfwCreateWindow(widthMM,heightMM,AppName.c_str(),glfwGetPrimaryMonitor(),NULL);
     //window = glfwCreateWindow(widthMM,heightMM,"TVBG V0.0.2.8",NULL,NULL);
     if (!window) {
         glfwTerminate();
