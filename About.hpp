@@ -11,11 +11,11 @@ const bool _DRAW_DEBUG_ = false;
       //define something for Windows (64-bit only)
    #endif
 #elif __linux
-    const std::string _FONT_LOCATION_ = "/usr/share/fonts/gnu-free/FreeSerif.ttf";
+    const std::string _FONT_LOCATION_ = "/usr/share/fonts/truetype/freefont/FreeSerif.ttf";
 #elif __unix // all unices not caught above
-    const std::string _FONT_LOCATION_ = "/usr/share/fonts/gnu-free/FreeSerif.ttf";
+    const std::string _FONT_LOCATION_ = "/usr/share/fonts/truetype/freefont/FreeSerif.ttf";
 #elif __posix
-    const std::string _FONT_LOCATION_ = "/usr/share/fonts/gnu-free/FreeSerif.ttf";
+    const std::string _FONT_LOCATION_ = "/usr/share/fonts/truetype/freefont/FreeSerif.ttf";
 #endif
 
 #endif // ABOUT_HPP_INCLUDED
